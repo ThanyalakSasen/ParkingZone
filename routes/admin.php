@@ -9,7 +9,7 @@ use App\Http\Controllers\Admin\Auth\PasswordController;
 use App\Http\Controllers\Admin\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Admin\Auth\RegisteredUserController;
 use App\Http\Controllers\Admin\Auth\VerifyEmailController;
-use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -60,5 +60,5 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
 
     # ParkingZone Admin
-    Route::get('admin', [AdminDashboardController::class, 'show'])->name('admin.dashboard');
+    Route::get('admin', [DashboardController::class, 'show'])->name('admin.dashboard');
 });

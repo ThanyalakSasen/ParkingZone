@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class AdminMiddleware
+class AdminAuthMiddleware
 {
     /**
      * Handle an incoming request.
@@ -17,15 +17,12 @@ class AdminMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         $isLogin = Auth::check();
-        $isRoleAdmin = Auth::user()->role === 'admin';
         $isAdmin = Auth::user()->is_admin;
 
-        // dd($isLogin, $isRoleAdmin, $isAdmin);
-
-        if ($isLogin && $isRoleAdmin && $isAdmin) {
+        if ($isLogin && $isAdmin) {
             return $next($request);
         }
 
-        return redirect('/')->with('error', 'You do not have admin access.');
+        return redirect('/admin/login')->with('error', 'You do not have admin access.');
     }
 }

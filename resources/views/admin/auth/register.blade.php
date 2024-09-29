@@ -1,8 +1,7 @@
 <x-guest-layout>
-    <div class="fs-3 text-center text-light">Admin Login</div>
     <form method="POST" action="{{ route('admin.register') }}">
         @csrf
-        
+
         <!-- Name -->
         <div>
             <x-input-label for="name" :value="__('Name')" />
