@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Admin\Auth\RegisteredUserController;
 use App\Http\Controllers\Admin\Auth\VerifyEmailController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\PromotionController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->prefix('admin')->group(function () {
@@ -61,4 +62,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     # Admin 
     Route::get('/', [DashboardController::class, 'show'])->name('admin.dashboard.index');
+
+    # เป็นการประกาศแบบที่ laravel กำหนด url กับ ชื่อฟังก์ชั่นใน controller ให้เอง
+    # อ่านเพิ่มใน https://laravel.com/docs/11.x/controllers#actions-handled-by-resource-controllers
+    Route::resource('promotions', PromotionController::class);
 });

@@ -4,128 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ asset('dashboard.css') }}">
     <title>จองที่จอดรถ</title>
-    <style>
-        body {
-            margin: 0px;
-            padding: 0px;
-            background-color: #011b60;
-        }
-
-        header {
-            width: 100%;
-            box-shadow: 0px 2px 15px black;
-            background-color: #ffffff;
-            color: #011b60;
-
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        header h3 {
-            margin-left: 15px;
-        }
-
-        header form {
-            margin-left: auto;
-            margin-right: 15px;
-        }
-
-        form #hourly-group .day {
-            display: flex;
-        }
-
-        form #day-group div,
-        form #monthly-group div {
-            margin: 20px;
-        }
-
-        form #hourly-group .day div {
-            margin: 10px;
-            display: block;
-        }
-
-        .shippingType {
-            display: flex;
-        }
-
-        form#main {
-            color: #011b60;
-            width: 50%;
-            border-radius: 10px;
-            margin-left: auto;
-            margin-right: auto;
-            margin-top: 50px;
-            padding: 20px;
-            background-color: #ffffff;
-        }
-
-        form#main h3 {
-            text-align: center;
-        }
-
-        form#main .shippingType div {
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        form#main #hourly-group {
-            display: block;
-        }
-
-        form#main #hourly-group, #day-group, #monthly-group {
-            display: none;
-            margin-left: 90px;
-        }
-
-        .vehicleType {
-            margin: 20px;
-            display: block;
-            padding-left: 70px;
-        }
-
-        .shippingType div {
-            margin-right: 20px;
-        }
-
-        #subbtn {
-            width: 80px;
-            height: 30px;
-            background-color: #011b60;
-            font-weight: bold;
-            color: #ffffff;
-            border: 0;
-            border-radius: 16px;
-            margin-top: 20px;
-            margin-left: auto; 
-            margin-right: auto; 
-
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-        }
-
-        #motorcycleForm select, #vehicleForm select {
-            width: 200px;
-        }
-
-        #motorcycleForm, #vehicleForm {
-            display: none;
-            transition: display 0.5s ease-in-out;
-        }
-
-        table {
-            border: 1px solid white;
-            border-radius: 10px;
-            margin-top: 20px;
-            margin-left: auto;
-            margin-right: auto;
-            padding: 20px;
-            color: #ffffff;
-        }
-    </style>
 
     <script>
         function showForm(type) {
@@ -165,6 +45,7 @@
         };
     </script>
 </head>
+
 <body>
     <header>
         <h3>ParkingZone</h3>
@@ -174,7 +55,7 @@
         </form>
     </header>
 
-    @if(session('success'))
+    @if (session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
@@ -183,7 +64,8 @@
         <h3>ค้นหาที่จอดรถ</h3>
         <div class="shippingType">
             <div>
-                <input type="radio" id="hourly" name="shipping_type" value="hourly" checked onchange="showForm('hourly')">
+                <input type="radio" id="hourly" name="shipping_type" value="hourly" checked
+                    onchange="showForm('hourly')">
                 <label for="hourly">รายชั่วโมง</label>
             </div>
             <div>
@@ -191,7 +73,8 @@
                 <label for="day">รายวัน</label>
             </div>
             <div>
-                <input type="radio" id="monthly" name="shipping_type" value="monthly" onchange="showForm('monthly')">
+                <input type="radio" id="monthly" name="shipping_type" value="monthly"
+                    onchange="showForm('monthly')">
                 <label for="monthly">รายเดือน</label>
             </div>
         </div>
@@ -207,7 +90,7 @@
             <div id="vehicleForm">
                 <select name="vehicle_info">
                     <option value="">เลือกหมายเลขทะเบียน</option>
-                    @foreach($vehicleInfos as $vehicleInfo)
+                    @foreach ($vehicleInfos as $vehicleInfo)
                         <option value="{{ $vehicleInfo->license_plate }}">{{ $vehicleInfo->license_plate }}</option>
                     @endforeach
                 </select>
@@ -215,7 +98,7 @@
             <div id="motorcycleForm">
                 <select name="vehicle_info">
                     <option value="">เลือกหมายเลขทะเบียน</option>
-                    @foreach($vehicleInfos as $vehicleInfo)
+                    @foreach ($vehicleInfos as $vehicleInfo)
                         <option value="{{ $vehicleInfo->license_plate }}">{{ $vehicleInfo->license_plate }}</option>
                     @endforeach
                 </select>
@@ -242,7 +125,7 @@
             <div id="vehicleForm">
                 <select name="vehicle_info">
                     <option value="">เลือกหมายเลขทะเบียน</option>
-                    @foreach($vehicleInfos as $vehicleInfo)
+                    @foreach ($vehicleInfos as $vehicleInfo)
                         <option value="{{ $vehicleInfo->license_plate }}">{{ $vehicleInfo->license_plate }}</option>
                     @endforeach
                 </select>
@@ -250,7 +133,7 @@
             <div id="motorcycleForm">
                 <select name="vehicle_info">
                     <option value="">เลือกหมายเลขทะเบียน</option>
-                    @foreach($vehicleInfos as $vehicleInfo)
+                    @foreach ($vehicleInfos as $vehicleInfo)
                         <option value="{{ $vehicleInfo->license_plate }}">{{ $vehicleInfo->license_plate }}</option>
                     @endforeach
                 </select>
@@ -277,7 +160,7 @@
             <div id="vehicleForm">
                 <select name="vehicle_info">
                     <option value="">เลือกหมายเลขทะเบียน</option>
-                    @foreach($vehicleInfos as $vehicleInfo)
+                    @foreach ($vehicleInfos as $vehicleInfo)
                         <option value="{{ $vehicleInfo->license_plate }}">{{ $vehicleInfo->license_plate }}</option>
                     @endforeach
                 </select>
@@ -285,7 +168,7 @@
             <div id="motorcycleForm">
                 <select name="vehicle_info">
                     <option value="">เลือกหมายเลขทะเบียน</option>
-                    @foreach($vehicleInfos as $vehicleInfo)
+                    @foreach ($vehicleInfos as $vehicleInfo)
                         <option value="{{ $vehicleInfo->license_plate }}">{{ $vehicleInfo->license_plate }}</option>
                     @endforeach
                 </select>
@@ -315,7 +198,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($dashboards as $dashboard)
+            @foreach ($dashboards as $dashboard)
                 <tr>
                     <td>{{ $dashboard->shipping_type }}</td>
                     <td>{{ $dashboard->vehicle_type }}</td>
@@ -328,4 +211,5 @@
         </tbody>
     </table>
 </body>
+
 </html>
