@@ -6,6 +6,8 @@
     > npm install
 3. migrate ตาราง (อย่าลืมแก้ .env)
     > php artisan migrate
+4. สร้าง APP_KEY ใหม่
+    > php artisan key:generate
 
 <br>
 **** อย่าใช้ branch main แก้โค้ด <br>
