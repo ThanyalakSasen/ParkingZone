@@ -13,7 +13,7 @@ class PaymentController extends Controller
         return view('payment');
     }
 
-    public function store(Request $request)
+    public function create(Request $request)
     {
         return "ชำระเงินเสร็จสิ้นสำหรับ: " . $request->input('email') . " จำนวนเงิน: " . $request->input('total_amount');
     }

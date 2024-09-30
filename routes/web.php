@@ -21,8 +21,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/reservations', [ReservationController::class, 'index'])->name('reservations.index');
     Route::get('/reservations/{id}', [ReservationController::class, 'show'])->name('reservations.show');
 
-    Route::get('/payment', [PaymentController::class, 'index'])->name('payment.index');
-    Route::post('/payment', [PaymentController::class, 'store'])->name('payment.store');
+    Route::get('/payments', [PaymentController::class, 'index'])->name('payment.index');
+    Route::post('/payments', [PaymentController::class, 'create'])->name('payment.create');
 });
 
 require __DIR__ . '/auth.php';
