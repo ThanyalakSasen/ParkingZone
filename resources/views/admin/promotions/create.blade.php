@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="{{ asset('icon.png') }}" sizes="32x32">
     <title>สร้างโปรโมชันใหม่</title>
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('promotions.css') }}">
 </head>
+
 <body>
     <div class="container">
         <h1>สร้างโปรโมชันใหม่</h1>
 
-        @if(session('success'))
+        @if (session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
             </div>
@@ -52,4 +55,5 @@
         <a href="{{ route('promotions.index') }}">กลับไปยังรายการโปรโมชัน</a>
     </div>
 </body>
+
 </html>
