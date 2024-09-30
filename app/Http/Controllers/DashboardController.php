@@ -18,6 +18,9 @@ class DashboardController extends Controller
         return view('dashboard', compact('dashboards', 'vehicleInfos'));
     }
 
+    # มีปัญหา กด submit ที่ form เเล้วเเล้วไม่ส่ง request มาที่ฟังก์ชั่นนี้
+    # เดาว่า เขียนฟอร์มผิดปกติ
+    # ให้ เอา validate เเล้วส่ง form post request เปล่าๆ มาลองก่อน
     public function create(Request $request)
     {
         $request->validate([
@@ -41,6 +44,7 @@ class DashboardController extends Controller
             'duration' => $duration,
         ]);
 
+        # ควรส่งไปที่ view parkingSpot
         return redirect()->route('dashboard')->with('success', 'สร้างรายการใน Dashboard สำเร็จแล้ว.');
     }
 }
