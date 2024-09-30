@@ -1,0 +1,149 @@
+body {
+    font-family: 'Prompt', sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+h1 {
+    text-align: center;
+    color: #2c3e50;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+label {
+    font-size: 1.1em;
+    margin-bottom: 8px;
+    display: block;
+    color: #34495e;
+}
+input[type="text"], input[type="number"], input[type="date"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1em;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+}
+input[type="text"]:focus, input[type="number"]:focus, input[type="date"]:focus {
+    border-color: #3498db;
+    outline: none;
+}
+input[type="submit"], .edit-btn, .delete-btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    color: white;
+    font-size: 1.1em;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+input[type="submit"] {
+    background-color: #000048;
+}
+input[type="submit"]:hover {
+    background-color: #010163;
+    transform: translateY(-2px);
+}
+.edit-btn {
+    margin-top: 10px;
+    background-color: #feae03;
+}
+.edit-btn:hover {
+    background-color: #eba205;
+    transform: translateY(-2px);
+}
+.delete-btn {
+    background-color: #891609;
+    margin-top: 10px;
+}
+.delete-btn:hover {
+    background-color: #5d0707;
+    transform: translateY(-2px);
+}
+.promotion-list {
+    margin-top: 30px;
+}
+.promotion-item {
+    background-color: #ecf0f1;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid #bdc3c7;
+    border-radius: 8px;
+    transition: box-shadow 0.3s, transform 0.2s;
+}
+.promotion-item:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+.promotion-item h3 {
+    margin: 0 0 10px;
+    font-size: 1.6em;
+    color: black;
+}
+.price-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+.price-group div {
+    flex: 1;
+}
+p {
+    color: #555;
+    margin: 5px 0;
+}
+/* ปรับปรุงการแสดงปุ่มในฟอร์ม */
+.action-buttons {
+    display: flex; /* ใช้ Flexbox */
+    justify-content: space-between; /* ให้มีระยะห่างระหว่างปุ่ม */
+    gap: 10px; /* ช่องว่างระหว่างปุ่ม */
+    align-items: center; /* จัดแนวปุ่มให้ตรงกลางในแนวตั้ง */
+}
+
+/* ปุ่มแก้ไข */
+.edit-btn {
+    width: auto; /* ปรับขนาดให้พอดี */
+    padding: 10px 20px; /* เพิ่ม padding สำหรับปุ่ม */
+    background-color: #feae03;
+    border-radius: 6px;
+    font-weight: bold;
+    border: 1px solid #f39c12; /* เส้นขอบ */
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s;
+}
+.edit-btn:hover {
+    background-color: #eba205;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* เงา */
+}
+
+/* ปุ่มลบ */
+.delete-btn {
+    width: auto; /* ปรับขนาดให้พอดี */
+    padding: 10px 20px; /* เพิ่ม padding สำหรับปุ่ม */
+    background-color: #891609;
+    border-radius: 6px;
+    font-weight: bold;
+    border: 1px solid #c0392b; /* เส้นขอบ */
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s;
+}
+.delete-btn:hover {
+    background-color: #5d0707;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* เงา */
+}
