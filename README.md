@@ -8,10 +8,10 @@
     > php artisan migrate
 
 <br>
-**** อย่าใช้ branch main แก้โค้ด 
-**** ให้สร้าง branch ตัวเอง เเล้วแก้ให้เสร็จในส่วนของตัวเอง
-**** เสร็จเเล้วสร้าง pull request บน github merge branch ตัวเองเข้า main
-**** ถ้ามี conflict ถามพี่ตั้ง !!!! (เผื่อพี่หลับอยู่)
+**** อย่าใช้ branch main แก้โค้ด <br>
+**** ให้สร้าง branch ตัวเอง เเล้วแก้ให้เสร็จในส่วนของตัวเอง<br>
+**** เสร็จเเล้วสร้าง pull request บน github merge branch ตัวเองเข้า main<br>
+**** ถ้ามี conflict ถามพี่ตั้ง !!!! (เผื่อพี่หลับอยู่)<br>
 <br>
 
 ### อธิบายโครงสร้าง project
