@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Admin\Auth\RegisteredUserController;
 use App\Http\Controllers\Admin\Auth\VerifyEmailController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Admin\PromotionController;
 use Illuminate\Support\Facades\Route;
 
@@ -66,4 +67,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     # เป็นการประกาศแบบที่ laravel กำหนด url กับ ชื่อฟังก์ชั่นใน controller ให้เอง
     # อ่านเพิ่มใน https://laravel.com/docs/11.x/controllers#actions-handled-by-resource-controllers
     Route::resource('promotions', PromotionController::class);
+
+    Route::get('/payment', [PaymentController::class, 'index'])->name('admin.payment.index');
+    Route::post('/payment', [PaymentController::class, 'store'])->name('admin.payment.store');
 });
