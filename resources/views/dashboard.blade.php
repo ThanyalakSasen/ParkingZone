@@ -59,7 +59,7 @@
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
-    <form id="main" action="{{ route('dashboard.create') }}" method="POST">
+    <form method="POST" action="{{ route('dashboard.create') }}" id="main">
         @csrf
         <h3>ค้นหาที่จอดรถ</h3>
         <div class="shippingType">
