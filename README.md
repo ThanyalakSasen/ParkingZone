@@ -1,66 +1,37 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+### Installation
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+1. ติดตั้ง package laravel
+    > composer install
+2. ติดตั้ง node package
+    > npm install
+3. migrate ตาราง (อย่าลืมแก้ .env)
+    > php artisan migrate
 
-## About Laravel
+<br>
+**** อย่าใช้ branch main แก้โค้ด 
+**** ให้สร้าง branch ตัวเอง เเล้วแก้ให้เสร็จในส่วนของตัวเอง
+**** เสร็จเเล้วสร้าง pull request บน github merge branch ตัวเองเข้า main
+**** ถ้ามี conflict ถามพี่ตั้ง !!!! (เผื่อพี่หลับอยู่)
+<br>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### อธิบายโครงสร้าง project
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+1. ฝั่งของ user
+    - route ที่ routes/web.php
+    - controller ที่ app/Http/Controllers/
+    - view ที่ resources/views/
+2. ฝั่งของ admin
+    - route ที่ routes/admin.php
+    - controller ที่ app/Http/Controllers/Admin/
+    - view ที่ resources/views/admin/
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+<br>
 
-## Learning Laravel
+### ส่วนที่ยังไม่เสร็จ
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+-   user dashboard กด submit เเล้วไม่ส่ง request
+-   parking spot ไม่เข้าใจ logic ของโค้ดที่ส่งมา ทำไม design ตารางแบบนั้น เเละไม่รู้จะใช้ model ไหน
+-   layout dashboard ทั้ง user กับ admin ยังไม่เพิ่ม เพราะพี่ไม่เห็นโค้ด sidebar.blade
+-   admin register ได้ โดยไม่ต้อง confirm กับ super-user เลย (อ้างว่าทำไม่ทันก็ได้) ถ้าจะแก้ทักมาถามพี่อีกที
+-   เส้น profile ของ user ดู url ใน routes/auth.php เผื่อจะเอาไปใส่ใน sidebar
+-   เส้น profile ของ admin ดู url ใน routes/admin/auth.php เผื่อจะเอาไปใส่ใน sidebar
