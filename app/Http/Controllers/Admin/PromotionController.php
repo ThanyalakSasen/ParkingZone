@@ -11,12 +11,12 @@ class PromotionController extends Controller
     public function index()
     {
         $promotions = Promotion::all();
-        return view('promotions.index', compact('promotions'));
+        return view('admin.promotions.index', compact('promotions'));
     }
 
     public function create()
     {
-        return view('promotions.create');
+        return view('admin.promotions.create');
     }
 
     public function store(Request $request)
