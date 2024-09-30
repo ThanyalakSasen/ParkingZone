@@ -11,7 +11,7 @@
 <body>
     <div class="container">
         <h1>ชำระเงินสำหรับการจองที่จอดรถ - โปรโมชัน</h1>
-        <form method="POST" action="{{ route('admin.payment.store') }}">
+        <form method="POST" action="{{ route('payment.store') }}">
             @csrf <!-- ใช้เพื่อป้องกัน CSRF -->
             <label for="email">กรอกอีเมลสำหรับส่งใบเสร็จ:</label>
             <input type="email" id="email" name="email" placeholder="ระบุอีเมล" required>

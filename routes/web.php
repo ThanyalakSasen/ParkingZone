@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReservationController;
 use Illuminate\Support\Facades\Route;
@@ -19,6 +20,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/reservations', [ReservationController::class, 'index'])->name('reservations.index');
     Route::get('/reservations/{id}', [ReservationController::class, 'show'])->name('reservations.show');
+
+    Route::get('/payment', [PaymentController::class, 'index'])->name('payment.index');
+    Route::post('/payment', [PaymentController::class, 'store'])->name('payment.store');
 });
 
 require __DIR__ . '/auth.php';
