@@ -64,6 +64,7 @@
             border-radius: 40px;
             font-size: x-large;
             font-weight: bolder;
+            cursor: pointer;
         }
         #main{
             background-color: #011b60;
@@ -115,7 +116,7 @@
     <section>
         <div class="container">
             <img src="../img/parking_lot.jpg" alt="" style="width:100%">
-            <div id="centered">ค้นหาและจองที่จอดรถด้วย ParkingZone</div>
+            <a id="centered" href="{{ url('/login') }}">ค้นหาและจองที่จอดรถด้วย ParkingZone</a>
         </div>
         <div id="main">
             <div class="sub-main">
