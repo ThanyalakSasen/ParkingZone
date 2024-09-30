@@ -22,4 +22,6 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__ . '/auth.php';
+
+# ส่วนของ admin จะอยู่ในไฟล์ admin.php
 require __DIR__ . '/admin.php';
