@@ -33,5 +33,5 @@
 -   parking spot ไม่เข้าใจ logic ของโค้ดที่ส่งมา ทำไม design ตารางแบบนั้น เเละไม่รู้จะใช้ model ไหน
 -   layout dashboard ทั้ง user กับ admin ยังไม่เพิ่ม เพราะพี่ไม่เห็นโค้ด sidebar.blade
 -   admin register ได้ โดยไม่ต้อง confirm กับ super-user เลย (อ้างว่าทำไม่ทันก็ได้) ถ้าจะแก้ทักมาถามพี่อีกที
--   เส้น profile ของ user ดู url ใน routes/auth.php เผื่อจะเอาไปใส่ใน sidebar
+-   เส้น profile ของ user ดู url ใน routes/web.php เผื่อจะเอาไปใส่ใน sidebar
 -   เส้น profile ของ admin ดู url ใน routes/admin/auth.php เผื่อจะเอาไปใส่ใน sidebar

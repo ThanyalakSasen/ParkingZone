@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="{{ asset('icon.png') }}" sizes="32x32">
     <title>ชำระเงินสำหรับการจองที่จอดรถ - โปรโมชั่น</title>
     <link rel="stylesheet" href="{{ asset('payment.css') }}">
 </head>
@@ -11,7 +12,7 @@
 <body>
     <div class="container">
         <h1>ชำระเงินสำหรับการจองที่จอดรถ - โปรโมชัน</h1>
-        <form method="POST" action="{{ route('admin.payment.store') }}">
+        <form method="POST" action="{{ route('payment.create') }}">
             @csrf <!-- ใช้เพื่อป้องกัน CSRF -->
             <label for="email">กรอกอีเมลสำหรับส่งใบเสร็จ:</label>
             <input type="email" id="email" name="email" placeholder="ระบุอีเมล" required>
