@@ -45,6 +45,7 @@ class DashboardController extends Controller
         ]);
 
         # ควรส่งไปที่ view parkingSpot
-        return redirect()->route('dashboard')->with('success', 'สร้างรายการใน Dashboard สำเร็จแล้ว.');
+        return view('parkingSpot', compact('dashboards', 'vehicleInfos'));
+        // return redirect()->route('dashboard')->with('success', 'สร้างรายการใน Dashboard สำเร็จแล้ว.');
     }
 }

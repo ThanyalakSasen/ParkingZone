@@ -45,13 +45,24 @@
             showForm('hourly');
         };
     </script>
+
+    <style>
+        form#login{
+            display: flex;
+        }
+        form#login button{
+            margin-left: 20px
+        }
+    </style>
 </head>
 
 <body>
     <header>
         <h3>ParkingZone</h3>
-        <form method="POST" action="{{ route('logout') }}">
+        
+        <form id="login" method="POST" action="{{ route('logout') }}">
             @csrf
+            <p>โปรไฟล์</p>
             <button type="submit">Logout</button>
         </form>
     </header>
@@ -184,10 +195,10 @@
             </div>
         </div>
 
-        <button type="submit" id="subbtn">สร้าง</button>
+        <button type="submit" id="subbtn">จอง</button>
     </form>
 
-    <table>
+    {{-- <table>
         <thead>
             <tr>
                 <th>ประเภทการจอง</th>
@@ -210,7 +221,7 @@
                 </tr>
             @endforeach
         </tbody>
-    </table>
+    </table> --}}
 </body>
 
 </html>
