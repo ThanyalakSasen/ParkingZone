@@ -47,9 +47,9 @@
     > php artisan make:migration <create/alter/remove_table_name>
 
     เช่น <br>
-    create_promotions_table,
-    alter_promotions_table_add_created_by_column,
-    alter_promotions_table_change_type_of_created_by_column
+    create_promotions_table,<br>
+    alter_promotions_table_add_created_by_column,<br>
+    alter_promotions_table_change_type_of_created_by_column<br>
 
 -   migrate table ลง database
     > php artisan migrate
