@@ -68,7 +68,7 @@ class PromotionController extends Controller
         $promotion = Promotion::findOrFail($id);
         $promotion->update($request->all());
 
-        return redirect()->route('promotions.index')->with('success', 'Promotion updated successfully.');
+        return redirect()->route('admin.promotions.index')->with('success', 'Promotion updated successfully.');
     }
 
     public function destroy($id)
