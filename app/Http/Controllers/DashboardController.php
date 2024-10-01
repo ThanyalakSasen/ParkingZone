@@ -18,33 +18,64 @@ class DashboardController extends Controller
         return view('dashboard', compact('dashboards', 'vehicleInfos'));
     }
 
-    # มีปัญหา กด submit ที่ form เเล้วเเล้วไม่ส่ง request มาที่ฟังก์ชั่นนี้
-    # เดาว่า เขียนฟอร์มผิดปกติ
-    # ให้ เอา validate เเล้วส่ง form post request เปล่าๆ มาลองก่อน
     public function create(Request $request)
     {
-        dd('hhhererer 1', $request->all());
-        $request->validate([
-            'shipping_type' => 'required|string|max:255',
-            'vehicle_type' => 'required|string|max:255',
-            'vehicle_info' => 'required|string',
+        $validated = $request->validate([
+            'shipping_type' => 'required|string|in:hourly,day,monthly',
+            'vehicle_type' => 'required|string|in:รถยนต์,มอเตอร์ไซต์',
+            'license_plate1' => 'required_if:vehicle_type,รถยนต์',
+            'license_plate2' => 'required_if:vehicle_type,มอเตอร์ไซต์',
             'date_entry' => 'required|date',
-            'duration' => 'required|numeric',
+            'duration' => 'required|integer|min:1',
         ]);
 
-        dd('hhhererer');
+        $shippingType = $validated['shipping_type'];
+        $dateEntry = $validated['date_entry'];
+        $duration = $validated['duration'];
+        
+        // ตรวจสอบหมายเลขทะเบียน
+        $licensePlate = $validated['vehicle_type'] === 'รถยนต์' 
+            ? $validated['license_plate1'] 
+            : $validated['license_plate2'];
 
+        if (empty($licensePlate)) {
+            return redirect()->back()->withErrors(['error' => 'กรุณากรอกหมายเลขทะเบียนรถ']);
+        }
+
+        // คำนวณ date_exit
+        $dateExit = $this->calculateDateExit($shippingType, $dateEntry, $duration);
+
+        if (is_null($dateExit)) {
+            return redirect()->back()->withErrors(['error' => 'ไม่สามารถคำนวณวันที่สิ้นสุดได้']);
+        }
+
+        // บันทึกลงในฐานข้อมูล
         Dashboard::create([
-            'shipping_type' => $request->input('shipping_type'),
-            'vehicle_type' => $request->input('vehicle_type'),
-            'license_plate' => $request->input('vehicle_info'),
-            'date_entry' => $request->input('date_entry'),
-            'date_exit' => $request->input('date_exit'),
-            'duration' => $request->input('duration'),
+            'shipping_type' => $shippingType,
+            'vehicle_type' => $validated['vehicle_type'],
+            'license_plate' => $licensePlate,
+            'date_entry' => $dateEntry,
+            'date_exit' => $dateExit,
+            'duration' => $duration,
         ]);
 
-        # ควรส่งไปที่ view parkingSpot
-        return view('parkingSpot', compact('dashboards', 'vehicleInfos'));
-        // return redirect()->route('dashboard')->with('success', 'สร้างรายการใน Dashboard สำเร็จแล้ว.');
+        return redirect()->route('dashboard.index')->with('success', 'สำเร็จแล้ว.'); //Route ระบุชื่อrouteที่กำหนดในname
+    }
+
+    private function calculateDateExit($shippingType, $dateEntry, $duration)
+    {
+        $dateEntry = Carbon::parse($dateEntry);
+        $duration = (int) $duration;
+
+        switch ($shippingType) {
+            case 'hourly':
+                return $dateEntry->addHours($duration)->toDateTimeString();
+            case 'day':
+                return $dateEntry->addDays($duration)->toDateTimeString();
+            case 'monthly':
+                return $dateEntry->addMonths($duration)->toDateTimeString();
+            default:
+                return null;
+        }
     }
 }

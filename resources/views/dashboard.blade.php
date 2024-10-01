@@ -37,11 +37,14 @@
             const motorcycleForm = document.getElementById('motorcycleForm');
 
             if (type === 'รถยนต์') {
-                carForm.style.display = 'block';
                 motorcycleForm.style.display = 'none';
-            } else if (type === 'มอเตอร์ไซต์') {
-                motorcycleForm.style.display = 'block';
+                carForm.style.display = 'block';
+                
+            } 
+            else if (type === 'มอเตอร์ไซต์') {
                 carForm.style.display = 'none';
+                motorcycleForm.style.display = 'block';
+                
             }
         }
 
@@ -103,16 +106,18 @@
             </select>
         </div>
         <div id="carForm">
-            <select name="vehicle_info">
+            <select name="license_plate1">
                 <option value="">เลือกหมายเลขทะเบียน</option>
+                <option value="1กว 6649">1กว 6649</option>
                 @foreach ($vehicleInfos as $vehicleInfo)
                     <option value="{{ $vehicleInfo->license_plate }}">{{ $vehicleInfo->license_plate }}</option>
                 @endforeach
             </select>
         </div>
         <div id="motorcycleForm">
-            <select name="vehicle_info">
+            <select name="license_plate2">
                 <option value="">เลือกหมายเลขทะเบียน</option>
+                <option value="ขม 214">ขม 214</option>
                 @foreach ($vehicleInfos as $vehicleInfo)
                     <option value="{{ $vehicleInfo->license_plate }}">{{ $vehicleInfo->license_plate }}</option>
                 @endforeach
