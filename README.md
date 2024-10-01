@@ -23,7 +23,6 @@
     - controller ที่ app/Http/Controllers/
     - view ที่ resources/views/
 2. ฝั่งของ admin
-
     - route ที่ routes/admin.php
     - controller ที่ app/Http/Controllers/Admin/
     - view ที่ resources/views/admin/
