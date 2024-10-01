@@ -10,34 +10,38 @@
 
     <script>
         function showForm(type) {
-            const hourlyGroup = document.getElementById('hourly-group');
-            const dayGroup = document.getElementById('day-group');
-            const monthlyGroup = document.getElementById('monthly-group');
+            const inputHourly = document.getElementById('hourly');
+            const inputDayly = document.getElementById('dayly');
+            const inputMonthly = document.getElementById('monthly');
 
-            hourlyGroup.style.display = 'none';
-            dayGroup.style.display = 'none';
-            monthlyGroup.style.display = 'none';
+            const label = document.getElementById('duration-label');
+            const inputLabel = document.getElementById('duration-input');
 
-            if (type === 'hourly') {
-                hourlyGroup.style.display = 'block';
-            } else if (type === 'day') {
-                dayGroup.style.display = 'block';
-            } else if (type === 'monthly') {
-                monthlyGroup.style.display = 'block';
+            if (inputHourly.checked) {
+                label.innerText = 'จำนวนชั่วโมง:';
+                inputLabel.min = 1;
+                inputLabel.max = 23;
+            } else if (inputDayly.checked) {
+                label.innerText = 'จำนวนวัน:';
+                inputLabel.min = 1;
+                inputLabel.max = 30;
+            } else {
+                label.innerText = 'จำนวนเดือน:';
+                inputLabel.min = 1;
+                inputLabel.max = 12;
             }
         }
 
         function showVehicleForm(type) {
-            const carForm = document.getElementById('vehicleForm');
+            const carForm = document.getElementById('carForm');
             const motorcycleForm = document.getElementById('motorcycleForm');
-
-            motorcycleForm.style.display = 'none';
-            carForm.style.display = 'none';
 
             if (type === 'รถยนต์') {
                 carForm.style.display = 'block';
+                motorcycleForm.style.display = 'none';
             } else if (type === 'มอเตอร์ไซต์') {
                 motorcycleForm.style.display = 'block';
+                carForm.style.display = 'none';
             }
         }
 
@@ -81,7 +85,7 @@
                 <label for="hourly">รายชั่วโมง</label>
             </div>
             <div>
-                <input type="radio" id="day" name="shipping_type" value="day" onchange="showForm('day')">
+                <input type="radio" id="dayly" name="shipping_type" value="day" onchange="showForm('day')">
                 <label for="day">รายวัน</label>
             </div>
             <div>
@@ -91,109 +95,39 @@
             </div>
         </div>
 
-        <div id="hourly-group">
-            <div class="vehicleType">
-                <select name="vehicle_type" id="vehicleType" onchange="showVehicleForm(this.value)">
-                    <option value="">เลือกประเภท</option>
-                    <option value="รถยนต์">รถยนต์</option>
-                    <option value="มอเตอร์ไซต์">มอเตอร์ไซต์</option>
-                </select>
-            </div>
-            <div id="vehicleForm">
-                <select name="vehicle_info">
-                    <option value="">เลือกหมายเลขทะเบียน</option>
-                    @foreach ($vehicleInfos as $vehicleInfo)
-                        <option value="{{ $vehicleInfo->license_plate }}">{{ $vehicleInfo->license_plate }}</option>
-                    @endforeach
-                </select>
-            </div>
-            <div id="motorcycleForm">
-                <select name="vehicle_info">
-                    <option value="">เลือกหมายเลขทะเบียน</option>
-                    @foreach ($vehicleInfos as $vehicleInfo)
-                        <option value="{{ $vehicleInfo->license_plate }}">{{ $vehicleInfo->license_plate }}</option>
-                    @endforeach
-                </select>
-            </div>
-            <div>
-                <label for="date_entry">วันที่เข้า:</label>
-                <input type="datetime-local" name="date_entry" required>
-            </div>
-            <div>
-                <label for="date_exit">วันที่ออก:</label>
-                <input type="datetime-local" name="date_exit" required>
-            </div>
-
+        <div class="vehicleType">
+            <select name="vehicle_type" id="vehicleType" onchange="showVehicleForm(this.value)">
+                <option value="">เลือกประเภท</option>
+                <option value="รถยนต์">รถยนต์</option>
+                <option value="มอเตอร์ไซต์">มอเตอร์ไซต์</option>
+            </select>
+        </div>
+        <div id="carForm">
+            <select name="vehicle_info">
+                <option value="">เลือกหมายเลขทะเบียน</option>
+                @foreach ($vehicleInfos as $vehicleInfo)
+                    <option value="{{ $vehicleInfo->license_plate }}">{{ $vehicleInfo->license_plate }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div id="motorcycleForm">
+            <select name="vehicle_info">
+                <option value="">เลือกหมายเลขทะเบียน</option>
+                @foreach ($vehicleInfos as $vehicleInfo)
+                    <option value="{{ $vehicleInfo->license_plate }}">{{ $vehicleInfo->license_plate }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div>
+            <label for="date_entry">วันที่เข้า:</label>
+            <input type="datetime-local" name="date_entry" required>
+        </div>
+        <div>
+            <label id='duration-label' for="duration"></label>
+            <input id="duration-input" type="number" name="duration">
         </div>
 
-        <div id="day-group">
-            <div class="vehicleType">
-                <select name="vehicle_info" id="vehicleType" onchange="showVehicleForm(this.value)">
-                    <option value="">เลือกประเภท</option>
-                    <option value="รถยนต์">รถยนต์</option>
-                    <option value="มอเตอร์ไซต์">มอเตอร์ไซต์</option>
-                </select>
-            </div>
-            <div id="vehicleForm">
-                <select name="vehicle_info">
-                    <option value="">เลือกหมายเลขทะเบียน</option>
-                    @foreach ($vehicleInfos as $vehicleInfo)
-                        <option value="{{ $vehicleInfo->license_plate }}">{{ $vehicleInfo->license_plate }}</option>
-                    @endforeach
-                </select>
-            </div>
-            <div id="motorcycleForm">
-                <select name="vehicle_info">
-                    <option value="">เลือกหมายเลขทะเบียน</option>
-                    @foreach ($vehicleInfos as $vehicleInfo)
-                        <option value="{{ $vehicleInfo->license_plate }}">{{ $vehicleInfo->license_plate }}</option>
-                    @endforeach
-                </select>
-            </div>
-            <div>
-                <label for="date_entry">วันที่เข้า:</label>
-                <input type="datetime-local" name="date_entry" required>
-            </div>
-            <div>
-                <label for="date_exit">วันที่ออก:</label>
-                <input type="datetime-local" name="date_exit" required>
-            </div>
 
-        </div>
-
-        <div id="monthly-group">
-            <div class="vehicleType">
-                <select name="vehicle_type" id="vehicleType" onchange="showVehicleForm(this.value)">
-                    <option value="">เลือกประเภท</option>
-                    <option value="รถยนต์">รถยนต์</option>
-                    <option value="มอเตอร์ไซต์">มอเตอร์ไซต์</option>
-                </select>
-            </div>
-            <div id="vehicleForm">
-                <select name="vehicle_info">
-                    <option value="">เลือกหมายเลขทะเบียน</option>
-                    @foreach ($vehicleInfos as $vehicleInfo)
-                        <option value="{{ $vehicleInfo->license_plate }}">{{ $vehicleInfo->license_plate }}</option>
-                    @endforeach
-                </select>
-            </div>
-            <div id="motorcycleForm">
-                <select name="vehicle_info">
-                    <option value="">เลือกหมายเลขทะเบียน</option>
-                    @foreach ($vehicleInfos as $vehicleInfo)
-                        <option value="{{ $vehicleInfo->license_plate }}">{{ $vehicleInfo->license_plate }}</option>
-                    @endforeach
-                </select>
-            </div>
-            <div>
-                <label for="date_entry">วันที่เข้า:</label>
-                <input type="datetime-local" name="date_entry" required>
-            </div>
-            <div>
-                <label for="date_exit">วันที่ออก:</label>
-                <input type="datetime-local" name="date_exit" required>
-            </div>
-        </div>
 
         <button type="submit" id="subbtn">จอง</button>
     </form>

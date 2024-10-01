@@ -23,17 +23,16 @@ class DashboardController extends Controller
     # ให้ เอา validate เเล้วส่ง form post request เปล่าๆ มาลองก่อน
     public function create(Request $request)
     {
+        dd('hhhererer 1', $request->all());
         $request->validate([
             'shipping_type' => 'required|string|max:255',
             'vehicle_type' => 'required|string|max:255',
             'vehicle_info' => 'required|string',
             'date_entry' => 'required|date',
-            'date_exit' => 'required|date|after:date_entry',
+            'duration' => 'required|numeric',
         ]);
 
-        $dateEntry = Carbon::parse($request->input('date_entry'));
-        $dateExit = Carbon::parse($request->input('date_exit'));
-        $duration = $dateExit->diffInHours($dateEntry);
+        dd('hhhererer');
 
         Dashboard::create([
             'shipping_type' => $request->input('shipping_type'),
@@ -41,7 +40,7 @@ class DashboardController extends Controller
             'license_plate' => $request->input('vehicle_info'),
             'date_entry' => $request->input('date_entry'),
             'date_exit' => $request->input('date_exit'),
-            'duration' => $duration,
+            'duration' => $request->input('duration'),
         ]);
 
         # ควรส่งไปที่ view parkingSpot
