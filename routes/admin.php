@@ -10,6 +10,8 @@ use App\Http\Controllers\Admin\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Admin\Auth\RegisteredUserController;
 use App\Http\Controllers\Admin\Auth\VerifyEmailController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\ParkingFloorController;
+use App\Http\Controllers\Admin\ParkingSpotController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\PromotionController;
 use Illuminate\Support\Facades\Route;
@@ -74,5 +76,18 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     # เป็นการประกาศแบบที่ laravel กำหนด url กับ ชื่อฟังก์ชั่นใน controller ให้เอง
     # อ่านเพิ่มใน https://laravel.com/docs/11.x/controllers#actions-handled-by-resource-controllers
-    Route::resource('promotions', PromotionController::class);
+    Route::resource('promotions', PromotionController::class, ['as' => 'admin.promotions']);
+
+    Route::resource('parking-floors', ParkingFloorController::class)->names([
+        'index'   => 'admin.parking-floors.index',
+        'store'   => 'admin.parking-floors.store',
+        'update'  => 'admin.parking-floors.update',
+        'destroy' => 'admin.parking-floors.destroy',
+    ]);
+    Route::resource('parking-spots', ParkingSpotController::class)->names([
+        'index'   => 'admin.parking-spots.index',
+        'store'   => 'admin.parking-spots.store',
+        'update'  => 'admin.parking-spots.update',
+        'destroy' => 'admin.parking-spots.destroy',
+    ]);
 });

@@ -14,7 +14,7 @@
     <div class="container">
         <h1>เพิ่มโปรโมชัน</h1>
         <form method="POST"
-            action="{{ isset($promotionToEdit) ? route('promotions.update', $promotionToEdit->id) : route('promotions.store') }}"
+            action="{{ isset($promotionToEdit) ? route('admin.promotions.update', $promotionToEdit->id) : route('admin.promotions.store') }}"
             id="promotionForm" onsubmit="return handleFormSubmit();">
             @csrf
             @if (isset($promotionToEdit))
@@ -106,7 +106,7 @@
                             <td>{{ $promotion->daily_discounted }}</td>
                             {{-- <td>{{ $promotion->monthly_discounted }}</td> --}}
                             <td>
-                                <form method="POST" action="{{ route('promotions.destroy', $promotion->id) }}"
+                                <form method="POST" action="{{ route('admin.promotions.destroy', $promotion->id) }}"
                                     style="display:inline;" onsubmit="return confirmDelete();">
                                     @csrf
                                     @method('DELETE')

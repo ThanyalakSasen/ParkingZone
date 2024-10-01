@@ -37,3 +37,19 @@
 -   admin register ได้ โดยไม่ต้อง confirm กับ super-user เลย (อ้างว่าทำไม่ทันก็ได้) ถ้าจะแก้ทักมาถามพี่อีกที
 -   เส้น profile ของ user ดู url ใน routes/web.php เผื่อจะเอาไปใส่ใน sidebar
 -   เส้น profile ของ admin ดู url ใน routes/admin/auth.php เผื่อจะเอาไปใส่ใน sidebar
+
+<br>
+
+### รวมคำสั่งใช้บ่อย
+
+-   สร้างไฟล์ migration table
+
+    > php artisan make:migration <create/alter/remove_table_name>
+
+    เช่น <br>
+    create_promotions_table,
+    alter_promotions_table_add_created_by_column,
+    alter_promotions_table_change_type_of_created_by_column
+
+-   migrate table ลง database
+    > php artisan migrate

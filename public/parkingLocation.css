@@ -1,0 +1,137 @@
+body {
+    font-family: "Prompt", sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+.success {
+    width: 100vw;
+    overflow: hidden;
+    background-color: #34a300;
+    color: white;
+    text-align: center;
+}
+.error {
+    width: 100vw;
+    overflow: hidden;
+    background-color: #c20000;
+    color: white;
+    text-align: center;
+}
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+h1 {
+    text-align: center;
+    color: #2c3e50;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+label {
+    font-size: 1.1em;
+    margin-bottom: 8px;
+    display: block;
+    color: #34495e;
+}
+input[type="text"],
+input[type="number"],
+input[type="date"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1em;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+}
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus {
+    border-color: #3498db;
+    outline: none;
+}
+input[type="submit"],
+.edit-btn,
+.delete-btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    color: white;
+    font-size: 1.1em;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+input[type="submit"] {
+    background-color: #000048;
+}
+input[type="submit"]:hover {
+    background-color: #010163;
+    transform: translateY(-2px);
+}
+
+.locations-list {
+    margin-top: 30px;
+    text-align: center;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+}
+tr {
+    height: 50px;
+    background-color: #ffffff;
+}
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+thead > tr {
+    height: 50px;
+    background-color: #bfbfbf;
+}
+
+th:last-child {
+    width: 20%;
+}
+td:last-child {
+    width: 20%;
+}
+td:last-child > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.manage-btn {
+    width: auto; /* ปรับขนาดให้พอดี */
+    padding: 8px 20px; /* เพิ่ม padding สำหรับปุ่ม */
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.edit {
+    border: 0;
+    color: rgb(0, 0, 0);
+    background-color: #fcc304;
+}
+.edit:hover {
+    background-color: #e8ac04;
+}
+.delete {
+    border: 0;
+    color: rgb(255, 255, 255);
+    background-color: #dc3545;
+}
+.delete:hover {
+    background-color: #c82333;
+}
