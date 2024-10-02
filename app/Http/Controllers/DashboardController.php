@@ -32,25 +32,25 @@ class DashboardController extends Controller
         $shippingType = $validated['shipping_type'];
         $dateEntry = $validated['date_entry'];
         $duration = $validated['duration'];
-        
+
         // ตรวจสอบหมายเลขทะเบียน
-        $licensePlate = $validated['vehicle_type'] === 'รถยนต์' 
-            ? $validated['license_plate1'] 
+        $licensePlate = $validated['vehicle_type'] === 'รถยนต์'
+            ? $validated['license_plate1']
             : $validated['license_plate2'];
 
         if (empty($licensePlate)) {
-            return redirect()->back()->withErrors(['error' => 'กรุณากรอกหมายเลขทะเบียนรถ']);
+            return redirect()->back()->withErrors(['errors' => 'กรุณากรอกหมายเลขทะเบียนรถ']);
         }
 
         // คำนวณ date_exit
         $dateExit = $this->calculateDateExit($shippingType, $dateEntry, $duration);
 
         if (is_null($dateExit)) {
-            return redirect()->back()->withErrors(['error' => 'ไม่สามารถคำนวณวันที่สิ้นสุดได้']);
+            return redirect()->back()->withErrors(['errors' => 'ไม่สามารถคำนวณวันที่สิ้นสุดได้']);
         }
 
         // บันทึกลงในฐานข้อมูล
-        Dashboard::create([
+        $dashboard = Dashboard::create([
             'shipping_type' => $shippingType,
             'vehicle_type' => $validated['vehicle_type'],
             'license_plate' => $licensePlate,
@@ -58,8 +58,7 @@ class DashboardController extends Controller
             'date_exit' => $dateExit,
             'duration' => $duration,
         ]);
-
-        return redirect()->route('dashboard.index')->with('success', 'สำเร็จแล้ว.'); //Route ระบุชื่อrouteที่กำหนดในname
+        return redirect()->route('user-parking-spots.show', $dashboard->id);
     }
 
     private function calculateDateExit($shippingType, $dateEntry, $duration)
@@ -69,11 +68,11 @@ class DashboardController extends Controller
 
         switch ($shippingType) {
             case 'hourly':
-                return $dateEntry->addHours($duration)->toDateTimeString();
+                return $dateEntry->addHours($duration)->format('Y-m-d\TH:i');
             case 'day':
-                return $dateEntry->addDays($duration)->toDateTimeString();
+                return $dateEntry->addDays($duration)->format('Y-m-d\TH:i');
             case 'monthly':
-                return $dateEntry->addMonths($duration)->toDateTimeString();
+                return $dateEntry->addMonths($duration)->format('Y-m-d\TH:i');
             default:
                 return null;
         }
