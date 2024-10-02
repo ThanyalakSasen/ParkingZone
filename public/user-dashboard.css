@@ -3,7 +3,6 @@ body {
     padding: 0px;
     background-color: #011b60;
 }
-
 header {
     width: 100%;
     box-shadow: 0px 2px 15px black;
@@ -20,10 +19,25 @@ header h3 {
 }
 
 header form {
+    display: flex;
     margin-left: auto;
     margin-right: 15px;
+    gap: 15px;
 }
-
+.success {
+    width: 100vw;
+    overflow: hidden;
+    background-color: #34a300;
+    color: white;
+    text-align: center;
+}
+.error {
+    width: 100vw;
+    overflow: hidden;
+    background-color: #c20000;
+    color: white;
+    text-align: center;
+}
 form #hourly-group .day {
     display: flex;
 }
@@ -72,11 +86,26 @@ form#main #hourly-group,
     display: none;
     margin-left: 90px;
 }
+.radio-wrap {
+    cursor: pointer;
+}
 
-.vehicleType {
+.dropdow-wrap {
     margin: 20px;
     display: block;
-    padding-left: 70px;
+}
+.dropdow-wrap > label {
+    display: block;
+    width: 100%;
+    font-weight: bold;
+    text-align: left;
+}
+.dropdown-select {
+    box-sizing: border-box;
+    width: 100%;
+    height: 50px;
+    border-radius: 5px;
+    font-size: 16px;
 }
 
 .shippingType div {
@@ -84,9 +113,10 @@ form#main #hourly-group,
 }
 
 #subbtn {
-    width: 80px;
-    height: 30px;
+    width: 80%;
+    height: 50px;
     background-color: #011b60;
+    font-size: 16px;
     font-weight: bold;
     color: #ffffff;
     border: 0;
@@ -99,11 +129,6 @@ form#main #hourly-group,
     justify-content: center;
     align-items: center;
     cursor: pointer;
-}
-
-#motorcycleForm select,
-#vehicleForm select {
-    width: 200px;
 }
 
 #motorcycleForm,
@@ -120,4 +145,20 @@ table {
     margin-right: auto;
     padding: 20px;
     color: #ffffff;
+}
+
+.input-date-time {
+    width: 100%;
+    height: 50px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #616161;
+}
+.input-duration {
+    width: 100%;
+    text-align: center;
+    height: 50px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #616161;
 }

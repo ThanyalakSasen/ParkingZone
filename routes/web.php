@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ParkingSpotController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReservationController;
@@ -27,6 +28,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/payments', [PaymentController::class, 'index'])->name('payment.index');
     Route::post('/payments', [PaymentController::class, 'create'])->name('payment.create');
+
+    Route::get('/parking-spots/{id}', [ParkingSpotController::class, 'show'])->name('user-parking-spots.show');
+    Route::patch('/select-parking-spots/{id}', [ParkingSpotController::class, 'update'])->name('user-parking-spots.update');
 });
 
 require __DIR__ . '/auth.php';

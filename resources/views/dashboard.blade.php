@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="{{ asset('icon.png') }}" sizes="32x32">
-    <link rel="stylesheet" href="{{ asset('dashboard.css') }}">
+    <link rel="stylesheet" href="{{ asset('user-dashboard.css') }}">
     <title>จองที่จอดรถ</title>
 
     <script>
@@ -35,16 +35,12 @@
         function showVehicleForm(type) {
             const carForm = document.getElementById('carForm');
             const motorcycleForm = document.getElementById('motorcycleForm');
-
             if (type === 'รถยนต์') {
-                motorcycleForm.style.display = 'none';
                 carForm.style.display = 'block';
-                
-            } 
-            else if (type === 'มอเตอร์ไซต์') {
+                motorcycleForm.style.display = 'none';
+            } else if (type === 'มอเตอร์ไซต์') {
                 carForm.style.display = 'none';
                 motorcycleForm.style.display = 'block';
-                
             }
         }
 
@@ -52,22 +48,18 @@
             showForm('hourly');
         };
     </script>
-
-    <style>
-        form#login{
-            display: flex;
-        }
-        form#login button{
-            margin-left: 20px
-        }
-    </style>
 </head>
 
 <body>
+    @if (session('success'))
+        <div class="success">{{ session('success') }}</div>
+    @endif
+    @if (session('errors'))
+        <div class="error">{{ session('errors') }}</div>
+    @endif
     <header>
         <h3>ParkingZone</h3>
-        
-        <form id="login" method="POST" action="{{ route('logout') }}">
+        <form method="POST" action="{{ route('logout') }}">
             @csrf
             <p>โปรไฟล์</p>
             <button type="submit">Logout</button>
@@ -83,53 +75,56 @@
         <h3>ค้นหาที่จอดรถ</h3>
         <div class="shippingType">
             <div>
-                <input type="radio" id="hourly" name="shipping_type" value="hourly" checked
-                    onchange="showForm('hourly')">
-                <label for="hourly">รายชั่วโมง</label>
+                <input class="radio-wrap" type="radio" id="hourly" name="shipping_type" value="hourly" checked
+                    onchange="showForm('hourly')">รายชั่วโมง</input>
             </div>
             <div>
-                <input type="radio" id="dayly" name="shipping_type" value="day" onchange="showForm('day')">
-                <label for="day">รายวัน</label>
+                <input class="radio-wrap" type="radio" id="dayly" name="shipping_type" value="day"
+                    onchange="showForm('day')">รายวัน</input>
             </div>
             <div>
-                <input type="radio" id="monthly" name="shipping_type" value="monthly"
-                    onchange="showForm('monthly')">
-                <label for="monthly">รายเดือน</label>
+                <input class="radio-wrap" type="radio" id="monthly" name="shipping_type" value="monthly"
+                    onchange="showForm('monthly')">รายเดือน</input>
             </div>
         </div>
 
-        <div class="vehicleType">
-            <select name="vehicle_type" id="vehicleType" onchange="showVehicleForm(this.value)">
-                <option value="">เลือกประเภท</option>
+        <div class="dropdow-wrap">
+            <label for="vehicle_type">เลือกประเภทรถ</label>
+            <select class="dropdown-select" name="vehicle_type" id="vehicle_type"
+                onchange="showVehicleForm(this.value)">
                 <option value="รถยนต์">รถยนต์</option>
                 <option value="มอเตอร์ไซต์">มอเตอร์ไซต์</option>
             </select>
         </div>
-        <div id="carForm">
-            <select name="license_plate1">
-                <option value="">เลือกหมายเลขทะเบียน</option>
+        <div id="carForm" class="dropdow-wrap">
+            <label for="license_plate1">เลือกหมายเลขทะเบียน</label>
+            <select class="dropdown-select" name="license_plate1">
                 <option value="1กว 6649">1กว 6649</option>
                 @foreach ($vehicleInfos as $vehicleInfo)
-                    <option value="{{ $vehicleInfo->license_plate }}">{{ $vehicleInfo->license_plate }}</option>
+                    @if ($vehicleInfo->vehicle_type == 'รถยนต์')
+                        <option value="{{ $vehicleInfo->license_plate }}">{{ $vehicleInfo->license_plate }}</option>
+                    @endif
                 @endforeach
             </select>
         </div>
-        <div id="motorcycleForm">
-            <select name="license_plate2">
-                <option value="">เลือกหมายเลขทะเบียน</option>
+        <div id="motorcycleForm" class="dropdow-wrap">
+            <label for="license_plate1">เลือกหมายเลขทะเบียน</label>
+            <select class="dropdown-select" name="license_plate2">
                 <option value="ขม 214">ขม 214</option>
                 @foreach ($vehicleInfos as $vehicleInfo)
-                    <option value="{{ $vehicleInfo->license_plate }}">{{ $vehicleInfo->license_plate }}</option>
+                    @if ($vehicleInfo->vehicle_type == 'มอเตอร์ไซต์')
+                        <option value="{{ $vehicleInfo->license_plate }}">{{ $vehicleInfo->license_plate }}</option>
+                    @endif
                 @endforeach
             </select>
         </div>
-        <div>
+        <div class="dropdow-wrap">
             <label for="date_entry">วันที่เข้า:</label>
-            <input type="datetime-local" name="date_entry" required>
+            <input class="input-date-time" type="datetime-local" name="date_entry" required>
         </div>
-        <div>
+        <div class="dropdow-wrap">
             <label id='duration-label' for="duration"></label>
-            <input id="duration-input" type="number" name="duration">
+            <input class="input-duration" id="duration-input" type="number" name="duration" value="1" required>
         </div>
 
 

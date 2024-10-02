@@ -6,13 +6,14 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\ParkingFloor;
 use App\Models\ParkingSpot;
+use App\Services\ParkingSpotService;
 
 class ParkingSpotController extends Controller
 {
     public function index()
     {
         $floors = ParkingFloor::with('parkingSpots')->orderBy('floor', 'DESC')->get();
-        $floors = $this->transformFloors($floors);
+        $floors = (new ParkingSpotService())->transformFloors($floors);
         return view('admin.parkingSpot', compact('floors'));
     }
 
@@ -59,34 +60,5 @@ class ParkingSpotController extends Controller
     {
         ParkingSpot::destroy($id);
         return redirect()->back()->with('success', 'Delete successfully!');
-    }
-
-    private function transformFloors($floors)
-    {
-        $result = [];
-        foreach ($floors as $floor) {
-            $floorData = [
-                'id' => $floor->id,
-                'name' => $floor->name,
-                'floor' => $floor->floor,
-                'spots' => $this->transfromSpot($floor->parkingSpots),
-            ];
-            $result[] = $floorData;
-        }
-        return $result;
-    }
-
-    public function transfromSpot($spots)
-    {
-        $data = [];
-        foreach ($spots as $spot) {
-            $data[] = [
-                'id' => $spot->id,
-                'spot_number' => $spot->spot_number,
-                'is_available' => $spot->is_available,
-                'spot_type' => $spot->spot_type,
-            ];
-        }
-        return $data;
     }
 }
