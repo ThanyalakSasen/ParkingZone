@@ -25,7 +25,9 @@
                 <li><a href="{{ route('vehicle.index') }}"><i class="fas fa-car"></i> ข้อมูลรถของคุณ</a></li>
             </ul>
         </div>
+    </div>
 
+    <div class="main-content">
         <h1>แก้ไขข้อมูลรถ</h1>
         <form action="{{ route('vehicle.update', $vehicle->id) }}" method="POST">
             @csrf
@@ -58,6 +60,7 @@
             <button type="submit">บันทึกการแก้ไข</button>
         </form>
         <a href="{{ route('vehicle.index') }}">กลับไปหน้าข้อมูลรถ</a>
+    </div>
 </body>
 
 </html>

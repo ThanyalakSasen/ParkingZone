@@ -47,7 +47,7 @@ class VehicleInfoController extends Controller
         $user = Auth::user();
         $vehicle = VehicleInfo::where('id', $id)->where('user_id', $user->id)->firstOrFail();
 
-        return view('vehicle.edit', compact('vehicle'));
+        return view('vehicleInfo.edit', compact('vehicle'));
     }
 
     // ฟังก์ชันบันทึกการแก้ไขข้อมูลรถ
