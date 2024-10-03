@@ -5,6 +5,7 @@ use App\Http\Controllers\ParkingSpotController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\VehicleInfoController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -34,6 +35,12 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/reservations', [ReservationController::class, 'index'])->name('reservations.index');
     Route::get('/reservations/{id}', [ReservationController::class, 'show'])->name('reservations.show');
+
+    Route::get('/vehicle-info', [VehicleInfoController::class, 'index'])->name('vehicle.index');
+    Route::get('/vehicle-info/create', [VehicleInfoController::class, 'create'])->name('vehicle.create');
+    Route::get('/vehicle-info/{id}/edit', [VehicleInfoController::class, 'edit'])->name('vehicle.edit');
+    Route::post('/vehicle-info', [VehicleInfoController::class, 'store'])->name('vehicle.store');
+    Route::delete('/vehicle-info/{id}', [VehicleInfoController::class, 'destroy'])->name('vehicle.delete');
 });
 
 require __DIR__ . '/auth.php';
