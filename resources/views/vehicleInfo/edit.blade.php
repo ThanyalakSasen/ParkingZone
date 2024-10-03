@@ -11,6 +11,7 @@
 </head>
 
 <body>
+    
     <div class="sidebar">
         <div class="container">
             <!-- รูปภาพผู้ใช้อยู่ข้างบน -->
@@ -29,7 +30,7 @@
 
     <div class="main-content">
         <h1>แก้ไขข้อมูลรถ</h1>
-        <form action="{{ route('vehicle.edit', $vehicle->id) }}" method="POST">
+        <form action="{{ route('vehicle.update', $vehicle->id) }}" method="POST">
             @csrf
             @method('PUT')
             <label for="license_plate">เลขทะเบียนรถ</label>

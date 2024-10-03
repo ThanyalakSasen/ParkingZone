@@ -19,14 +19,16 @@
             text-align: center;
             color: white;
         }
-        ul li button{
+
+        ul li button {
             background-color: #000048;
             border: 1px solid #000048;
             color: white;
             font-size: 18px;
 
         }
-        ul li button:hover{
+
+        ul li button:hover {
             background-color: white;
             border: 1px solid white;
             color: #000048;
@@ -36,6 +38,13 @@
 </head>
 
 <body>
+    {{-- @if (session('success'))
+    <div class="success">{{ session('success') }}</div>
+@endif
+@if (session('errors'))
+    <div class="error">{{ session('errors') }}</div>
+@endif --}}
+
 
     <div class="sidebar">
         <div class="container">
@@ -51,10 +60,12 @@
             <ul>
                 <li><a href="{{ route('profile.edit') }}"><i class="fas fa-user"></i> ข้อมูลส่วนตัว</a></li>
                 <li><a href="{{ route('vehicle.index') }}"><i class="fas fa-car"></i> ข้อมูลรถของคุณ</a></li>
-                <li><form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <button type="submit">Logout</button>
-                </form></li>
+                <li>
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit">Logout</button>
+                    </form>
+                </li>
             </ul>
         </div>
     </div>
@@ -107,7 +118,6 @@
             }
             return true; // ถ้าไม่เกิน 4 คัน ให้ไปต่อ
         }
-
     </script>
 
 </body>
