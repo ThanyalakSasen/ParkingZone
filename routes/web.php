@@ -5,6 +5,7 @@ use App\Http\Controllers\ParkingSpotController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\CarInfoController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -31,6 +32,11 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/parking-spots/{id}', [ParkingSpotController::class, 'show'])->name('user-parking-spots.show');
     Route::patch('/select-parking-spots/{id}', [ParkingSpotController::class, 'update'])->name('user-parking-spots.update');
+
+    Route::get('car-info', [CarInfoController::class, 'index'])->name('car.index');
+    Route::post('car-info/store', [CarInfoController::class, 'store'])->name('car.store');
+    Route::resource('car', CarInfoController::class)->middleware('auth');
+    Route::get('/carinfo', [CarInfoController::class, 'index'])->name('carinfo.index');
 });
 
 require __DIR__ . '/auth.php';
