@@ -2,23 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Promotion; 
 use Illuminate\Http\Request;
+use Illuminate\View\View;
+use App\Http\Controllers\Controller;
 
 class PaymentController extends Controller
 {
-    public function showPaymentForm()
+    public function index(): View
     {
-        // ดึงข้อมูลโปรโมชั่นทั้งหมดจากฐานข้อมูล
-        dd('here');
-        $promotions = Promotion::all(); // หรือใช้ query อื่นๆ ตามที่คุณต้องการ
-
-        // ส่งตัวแปร $promotions ไปยัง view
-        return view('payment', compact('promotions'));
+        return view('payment');
     }
 
-    public function processPayment(Request $request)
+    public function create(Request $request)
     {
-        // การประมวลผลการชำระเงิน
+        return "ชำระเงินเสร็จสิ้นสำหรับ: " . $request->input('email') . " จำนวนเงิน: " . $request->input('total_amount');
     }
 }

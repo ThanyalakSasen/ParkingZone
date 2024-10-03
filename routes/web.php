@@ -15,9 +15,6 @@ Route::get('/board', function () {
     return view('board');
 })->name('board');
 
-Route::get('/payment-success', function () {
-    return view('payment_success');
-});
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -37,11 +34,6 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/reservations', [ReservationController::class, 'index'])->name('reservations.index');
     Route::get('/reservations/{id}', [ReservationController::class, 'show'])->name('reservations.show');
-
-    Route::get('/payment', [PaymentController::class, 'showPaymentForm']);
-    Route::post('/payment_process', [PaymentController::class, 'processPayment']);
-
-    
 });
 
 require __DIR__ . '/auth.php';
