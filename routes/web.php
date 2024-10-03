@@ -31,6 +31,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/parking-spots/{id}', [ParkingSpotController::class, 'show'])->name('user-parking-spots.show');
     Route::patch('/select-parking-spots/{id}', [ParkingSpotController::class, 'update'])->name('user-parking-spots.update');
+
+    Route::get('/reservations', [ReservationController::class, 'index'])->name('reservations.index');
+    Route::get('/reservations/{id}', [ReservationController::class, 'show'])->name('reservations.show');
 });
 
 require __DIR__ . '/auth.php';

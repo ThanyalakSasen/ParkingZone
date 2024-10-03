@@ -76,7 +76,13 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     # เป็นการประกาศแบบที่ laravel กำหนด url กับ ชื่อฟังก์ชั่นใน controller ให้เอง
     # อ่านเพิ่มใน https://laravel.com/docs/11.x/controllers#actions-handled-by-resource-controllers
-    Route::resource('promotions', PromotionController::class, ['as' => 'admin.promotions']);
+    Route::resource('promotions', PromotionController::class)->names([
+        'index'   => 'admin.promotions.index',
+        'create'   => 'admin.promotions.create',
+        'store'   => 'admin.promotions.store',
+        'update'  => 'admin.promotions.update',
+        'destroy' => 'admin.promotions.destroy',
+    ]);
 
     Route::resource('parking-floors', ParkingFloorController::class)->names([
         'index'   => 'admin.parking-floors.index',
