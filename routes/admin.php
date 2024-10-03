@@ -38,6 +38,8 @@ Route::middleware('guest')->prefix('admin')->group(function () {
 
     Route::post('/reset-password', [NewPasswordController::class, 'store'])
         ->name('admin.password.store');
+    
+        
 });
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
@@ -69,6 +71,12 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('admin.logout');
+
+    Route::get('/promotions', [PromotionController::class, 'index'])->name('promotions.index');
+Route::get('/promotions/create', [PromotionController::class, 'create'])->name('promotions.create');
+Route::post('/promotions', [PromotionController::class, 'store'])->name('promotions.store');
+Route::put('/promotions/{id}', [PromotionController::class, 'update'])->name('promotions.update'); // เพิ่มการอัปเดตโปรโมชัน
+Route::delete('/promotions/{id}', [PromotionController::class, 'destroy'])->name('promotions.destroy');
 
 
     # Admin 
