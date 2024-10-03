@@ -18,7 +18,8 @@ Route::get('/board', function () {
 
 Route::get('/payment-success', function () {
     return view('payment_success');
-});
+})->name('payment.success');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -30,8 +31,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/reservations', [ReservationController::class, 'index'])->name('reservations.index');
     Route::get('/reservations/{id}', [ReservationController::class, 'show'])->name('reservations.show');
 
-    Route::get('/payments', [PaymentController::class, 'index'])->name('payment.index');
-    Route::post('/payments', [PaymentController::class, 'create'])->name('payment.create');
+    Route::get('/payments', [PaymentController::class, 'index'])->name('payment.index'); // route('payment.index')
+    Route::post('/payments', [PaymentController::class, 'store'])->name('payment.store');
 
     Route::get('/parking-spots/{id}', [ParkingSpotController::class, 'show'])->name('user-parking-spots.show');
     Route::patch('/select-parking-spots/{id}', [ParkingSpotController::class, 'update'])->name('user-parking-spots.update');

@@ -7,18 +7,17 @@ use Illuminate\Http\Request;
 
 class PaymentController extends Controller
 {
-    public function showPaymentForm()
+    public function index()
     {
         // ดึงข้อมูลโปรโมชั่นทั้งหมดจากฐานข้อมูล
-        dd('here');
         $promotions = Promotion::all(); // หรือใช้ query อื่นๆ ตามที่คุณต้องการ
 
         // ส่งตัวแปร $promotions ไปยัง view
         return view('payment', compact('promotions'));
     }
 
-    public function processPayment(Request $request)
+    public function store(Request $request)
     {
-        // การประมวลผลการชำระเงิน
+        dd('payment store');
     }
 }

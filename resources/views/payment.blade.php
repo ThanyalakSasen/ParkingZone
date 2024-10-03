@@ -11,12 +11,10 @@
     <div class="container">
         <h1>ชำระเงินสำหรับการจองที่จอดรถ - เลือกโปรโมชัน</h1>
         
-        <form action="{{ url('/payment_process') }}" method="POST">
+        <form action="{{ route('payment.store') }}" method="POST">
             @csrf <!-- ป้องกัน CSRF -->
 
-            <!-- กรอกอีเมลเพื่อรับใบเสร็จ -->
-            <label for="email">กรอกอีเมลสำหรับส่งใบเสร็จ:</label>
-            <input type="email" id="email" name="email" placeholder="ระบุอีเมล" required>
+           
 
             <!-- ส่วนเลือกโปรโมชัน -->
             <label for="promotion">เลือกโปรโมชัน:</label>
@@ -39,10 +37,13 @@
             <!-- แสดง QR Code -->
             <div class="qr-code">
                 <label>สแกน QR Code เพื่อชำระเงิน:</label>
-                <img src="images/payyyy.jpg" alt="QR Code สำหรับชำระเงิน">
+                <img src="img/payyyy.jpg" alt="QR Code สำหรับชำระเงิน">
             </div>
 
-            <input type="submit" value="ชำระเงิน">
+            
+            <div class="button">
+                <a href="{{ route('payment.success') }}">ชำระเงิน</a>
+            </div>
         </form>
     </div>
 
