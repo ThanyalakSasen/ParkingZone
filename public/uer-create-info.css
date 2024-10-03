@@ -170,3 +170,7 @@ button:hover, .back-btn:hover {
 .button-container {
     text-align: center;
 }
+a{
+    text-decoration: none;
+    color: #000;
+}

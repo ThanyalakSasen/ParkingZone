@@ -132,3 +132,8 @@ table td {
     border-radius: 3px;
     margin: 2px;
 }
+a{
+    text-decoration: none;
+    color: white;
+    font-size: medium;
+}

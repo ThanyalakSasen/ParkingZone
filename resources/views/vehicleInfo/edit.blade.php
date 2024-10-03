@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>แก้ไขข้อมูลรถ</title>
-    <link rel="stylesheet" href="{{ asset('user-vehicle.css') }}">
+    <link rel="stylesheet" href="{{ asset('uer-create-info.css') }}">
     <link rel="stylesheet" href="{{ asset('nav.css') }}">
 </head>
 
@@ -29,7 +29,7 @@
 
     <div class="main-content">
         <h1>แก้ไขข้อมูลรถ</h1>
-        <form action="{{ route('vehicle.update', $vehicle->id) }}" method="POST">
+        <form action="{{ route('vehicle.edit', $vehicle->id) }}" method="POST">
             @csrf
             @method('PUT')
             <label for="license_plate">เลขทะเบียนรถ</label>

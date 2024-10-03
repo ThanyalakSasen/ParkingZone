@@ -7,6 +7,32 @@
     <title>ข้อมูลรถของคุณ</title>
     <link rel="stylesheet" href="{{ asset('user-vehicle.css') }}">
     <link rel="stylesheet" href="{{ asset('nav.css') }}">
+    <style>
+        .main-content a {
+            color: black;
+            margin-right: 15px;
+        }
+
+        .btn a {
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+            color: white;
+        }
+        ul li button{
+            background-color: #000048;
+            border: 1px solid #000048;
+            color: white;
+            font-size: 18px;
+
+        }
+        ul li button:hover{
+            background-color: white;
+            border: 1px solid white;
+            color: #000048;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -25,6 +51,10 @@
             <ul>
                 <li><a href="{{ route('profile.edit') }}"><i class="fas fa-user"></i> ข้อมูลส่วนตัว</a></li>
                 <li><a href="{{ route('vehicle.index') }}"><i class="fas fa-car"></i> ข้อมูลรถของคุณ</a></li>
+                <li><form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit">Logout</button>
+                </form></li>
             </ul>
         </div>
     </div>
@@ -32,7 +62,7 @@
 
     <div class="main-content">
         <h1>ข้อมูลรถของคุณ</h1>
-        <button class="btn" id="addCarBtn" onclick="goToFormPage()"><a
+        <button class="btn" id="addCarBtn" onclick="checkCarLimit(event, {{ $vehicles->count() }})"><a
                 href="{{ route('vehicle.create') }}">เพิ่มรถใหม่</a></button>
         <table>
             <thead>
@@ -64,7 +94,21 @@
                 @endforeach
             </tbody>
         </table>
+    </div>
 
+    <script>
+        // ฟังก์ชันตรวจสอบจำนวนรถก่อนการเพิ่มใหม่
+        function checkCarLimit(event, carCount) {
+            if (carCount >= 4) {
+                // แสดง alert เตือนว่าจำนวนรถเกินแล้ว
+                alert('คุณไม่สามารถเพิ่มรถได้เกิน 4 คัน');
+                event.preventDefault(); // ป้องกันการคลิกเข้าไปในลิงก์
+                return false; // หยุดการทำงานของลิงก์
+            }
+            return true; // ถ้าไม่เกิน 4 คัน ให้ไปต่อ
+        }
+
+    </script>
 
 </body>
 
