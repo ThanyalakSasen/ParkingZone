@@ -27,14 +27,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/reservations', [ReservationController::class, 'index'])->name('reservations.index');
     Route::get('/reservations/{id}', [ReservationController::class, 'show'])->name('reservations.show');
 
-    Route::get('/payments', [PaymentController::class, 'index'])->name('payment.index');
-    Route::post('/payments', [PaymentController::class, 'create'])->name('payment.create');
+    Route::get('/payments/{dashboard_id}', [PaymentController::class, 'index'])->name('payment.index');
+    Route::post('/payments/{dashboard_id}', [PaymentController::class, 'create'])->name('payment.create');
 
     Route::get('/parking-spots/{id}', [ParkingSpotController::class, 'show'])->name('user-parking-spots.show');
     Route::patch('/select-parking-spots/{id}', [ParkingSpotController::class, 'update'])->name('user-parking-spots.update');
-
-    Route::get('/reservations', [ReservationController::class, 'index'])->name('reservations.index');
-    Route::get('/reservations/{id}', [ReservationController::class, 'show'])->name('reservations.show');
 
     Route::get('/vehicle-info', [VehicleInfoController::class, 'index'])->name('vehicle.index');
     Route::get('/vehicle-info/create', [VehicleInfoController::class, 'create'])->name('vehicle.create');
