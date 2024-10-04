@@ -9,7 +9,6 @@ use App\Http\Controllers\Admin\Auth\PasswordController;
 use App\Http\Controllers\Admin\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Admin\Auth\RegisteredUserController;
 use App\Http\Controllers\Admin\Auth\VerifyEmailController;
-use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ParkingFloorController;
 use App\Http\Controllers\Admin\ParkingSpotController;
 use App\Http\Controllers\Admin\ProfileController;
@@ -72,7 +71,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
 
     # Admin 
-    Route::get('/', [DashboardController::class, 'show'])->name('admin.dashboard.index');
+    Route::get('/', function () {
+        return redirect()->route('admin.parking-spots.index');
+    });
 
     # เป็นการประกาศแบบที่ laravel กำหนด url กับ ชื่อฟังก์ชั่นใน controller ให้เอง
     # อ่านเพิ่มใน https://laravel.com/docs/11.x/controllers#actions-handled-by-resource-controllers
