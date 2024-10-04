@@ -23,14 +23,4 @@ class Dashboard extends Model
         'date_entry' => 'datetime',
         'date_exit' => 'datetime',
     ];
-
-    public function isOverdue()
-    {
-        return $this->dateExit < now();
-    }
-
-    // public function carInfo()
-    // {
-    //     return $this->belongsTo(CarInfo::class, 'license_plate', 'license_plate'); // เชื่อมโยงกับ CarInfo
-    // }
 }

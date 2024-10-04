@@ -101,7 +101,12 @@
         <div id="carForm" class="dropdow-wrap">
             <label for="license_plate1">เลือกหมายเลขทะเบียน</label>
             <select class="dropdown-select" name="license_plate1">
-                <option value="1กว 6649">1กว 6649</option>
+                {{ $cars = $vehicleInfos->filter(function ($vehicleInfo) {
+                    return $vehicleInfo->vehicle_type == 'รถยนต์';
+                }) }}
+                @if (isset($cars) && count($cars) == 0)
+                    <option value="" disabled selected>ไม่มีหมายเลขทะเบียนรถยนต์</option>
+                @endif
                 @foreach ($vehicleInfos as $vehicleInfo)
                     @if ($vehicleInfo->vehicle_type == 'รถยนต์')
                         <option value="{{ $vehicleInfo->license_plate }}">{{ $vehicleInfo->license_plate }}</option>
@@ -109,10 +114,16 @@
                 @endforeach
             </select>
         </div>
+
         <div id="motorcycleForm" class="dropdow-wrap">
             <label for="license_plate1">เลือกหมายเลขทะเบียน</label>
             <select class="dropdown-select" name="license_plate2">
-                <option value="ขม 214">ขม 214</option>
+                {{ $cars = $vehicleInfos->filter(function ($vehicleInfo) {
+                    return $vehicleInfo->vehicle_type == 'มอเตอร์ไซต์';
+                }) }}
+                @if (isset($cars) && count($cars) == 0)
+                    <option value="" disabled selected>ไม่มีหมายเลขทะเบียนมอเตอร์ไซต์</option>
+                @endif
                 @foreach ($vehicleInfos as $vehicleInfo)
                     @if ($vehicleInfo->vehicle_type == 'มอเตอร์ไซต์')
                         <option value="{{ $vehicleInfo->license_plate }}">{{ $vehicleInfo->license_plate }}</option>

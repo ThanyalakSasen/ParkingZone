@@ -16,6 +16,7 @@ class DashboardController extends Controller
         $user = Auth::user();
         $dashboards = Dashboard::all();
         $vehicleInfos = VehicleInfo::where('user_id', $user->id)->get();
+
         if (count($vehicleInfos) == 0) {
             return redirect()->route('vehicle.create');
         }
