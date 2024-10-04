@@ -132,3 +132,22 @@ table td {
     border-radius: 3px;
     margin: 2px;
 }
+a{
+    text-decoration: none;
+    color: white;
+    font-size: medium;
+}
+/* .success {
+    width: 100vw;
+    overflow: hidden;
+    background-color: #34a300;
+    color: white;
+    text-align: center;
+}
+.error {
+    width: 100vw;
+    overflow: hidden;
+    background-color: #c20000;
+    color: white;
+    text-align: center;
+} */
