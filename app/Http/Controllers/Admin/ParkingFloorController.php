@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\ParkingFloor;
+use Illuminate\Validation\Rule;
 
 class ParkingFloorController extends Controller
 {
@@ -18,7 +19,14 @@ class ParkingFloorController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'floor' => 'required|numeric|unique:parking_floors,floor',
+            'floor' => [
+                'required',
+                'numeric',
+                Rule::unique('parking_floors', 'floor'),
+                Rule::unique('parking_floors')->where(function ($query) use ($request) {
+                    return $query->where('name', $request->name);
+                }),
+            ],
         ]);
         $parkingFloor = ParkingFloor::create($request->all());
         return redirect()->back()->with('success', 'Parking floor: "' . $parkingFloor->name . '" Create successfully!');
@@ -28,7 +36,14 @@ class ParkingFloorController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'floor' => 'required|numeric|unique:parking_floors,floor',
+            'floor' => [
+                'required',
+                'numeric',
+                Rule::unique('parking_floors', 'floor')->ignore($id),
+                Rule::unique('parking_floors')->where(function ($query) use ($request) {
+                    return $query->where('name', $request->name);
+                })->ignore($id),
+            ],
         ]);
 
         $parkingSpot = ParkingFloor::findOrFail($id);

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ParkingFloor;
 use App\Models\ParkingSpot;
 use App\Services\ParkingSpotService;
+use Illuminate\Validation\Rule;
 
 class ParkingSpotController extends Controller
 {
@@ -20,7 +21,12 @@ class ParkingSpotController extends Controller
     public function store(Request $request)
     {
         $validate = $request->validate([
-            'spot_number' => 'required|string|max:255',
+            'spot_number' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('parking_spots', 'spot_number'),
+            ],
             'floor_id' => 'required|numeric',
             'is_available' => 'required|numeric',
             'spot_type' => 'required|string',
@@ -39,7 +45,12 @@ class ParkingSpotController extends Controller
     public function update(Request $request, $id)
     {
         $validate = $request->validate([
-            'spot_number' => 'required|string|max:255',
+            'spot_number' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('parking_spots', 'spot_number')->ignore($id),
+            ],
             'floor_id' => 'required|numeric',
             'is_available' => 'required|numeric',
             'spot_type' => 'required|string',

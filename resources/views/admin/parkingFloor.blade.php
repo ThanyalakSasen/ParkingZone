@@ -1,22 +1,12 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+@extends('admin.layouts.sidebar')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="{{ asset('icon.png') }}" sizes="32x32">
-    <title>เพิ่มสถานที่จอดรถ</title>
-    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('parkingLocation.css') }}">
-</head>
+@section('title', 'เพิ่มสถานที่จอดรถ')
 
-<body>
-    @if (session('success'))
-        <div class="success">{{ session('success') }}</div>
-    @endif
-    @if (session('errors'))
-        <div class="error">{{ session('errors') }}</div>
-    @endif
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('admin-parking-location.css') }}">
+@endpush
+
+@section('content')
     <div class="container">
         <h1>เพิ่มชั้นที่จอดรถ</h1>
         <form method="POST"
@@ -59,8 +49,7 @@
                                 <div>
                                     <button class="manage-btn edit"
                                         onclick="editLocation({{ $floor }})">แก้ไข</button>
-                                    <form method="POST"
-                                        action="{{ route('admin.parking-floors.destroy', $floor->id) }}"
+                                    <form method="POST" action="{{ route('admin.parking-floors.destroy', $floor->id) }}"
                                         style="display:inline;" onsubmit="return confirmDelete();">
                                         @csrf
                                         @method('DELETE')
@@ -107,6 +96,4 @@
             form.appendChild(csrfInput);
         }
     </script>
-</body>
-
-</html>
+@endsection
