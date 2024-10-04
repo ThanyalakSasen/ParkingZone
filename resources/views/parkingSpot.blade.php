@@ -55,7 +55,7 @@
     <script>
         function selectSpot(isAvailable) {
             if (!isAvailable) {
-                return;
+                event.preventDefault();
             }
             const form = document.getElementById('select-spot-form');
             form.action = `/parking-spots/${spot['id']}`;
