@@ -1,67 +1,46 @@
-<!-- resources/views/car/edit.blade.php -->
-<!DOCTYPE html>
-<html lang="th">
+@extends('layouts.sidebar')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>แก้ไขข้อมูลรถ</title>
-    <link rel="stylesheet" href="{{ asset('uer-create-info.css') }}">
-    <link rel="stylesheet" href="{{ asset('nav.css') }}">
-</head>
+@section('title', 'แก้ไขข้อมูลรถ')
 
-<body>
-    
-    <div class="sidebar">
-        <div class="container">
-            <!-- รูปภาพผู้ใช้อยู่ข้างบน -->
-            <div class="profile-image-container">
-                <div class="profile-image" id="profilePreview">
-                    <img src="https://via.placeholder.com/120" alt="Profile Image">
-                </div>
-            </div>
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('user-vehicle-edit.css') }}">
+@endpush
 
-            <ul>
-                <li><a href="{{ route('profile.edit') }}"><i class="fas fa-user"></i> ข้อมูลส่วนตัว</a></li>
-                <li><a href="{{ route('vehicle.index') }}"><i class="fas fa-car"></i> ข้อมูลรถของคุณ</a></li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="main-content">
+@section('content')
+    <div class="container">
         <h1>แก้ไขข้อมูลรถ</h1>
         <form action="{{ route('vehicle.update', $vehicle->id) }}" method="POST">
             @csrf
             @method('PUT')
-            <label for="license_plate">เลขทะเบียนรถ</label>
-            <input type="text" id="license_plate" name="license_plate" value="{{ $vehicle->license_plate }}"
-                required>
-            <br>
-
-            <label for="province">เลือกจังหวัด</label>
-            <select id="province" name="province" required>
-                <option value="" disabled>เลือกจังหวัด</option>
-                <option value="กรุงเทพมหานคร" {{ $vehicle->province == 'กรุงเทพมหานคร' ? 'selected' : '' }}>
-                    กรุงเทพมหานคร
-                </option>
-                <option value="เชียงใหม่" {{ $vehicle->province == 'เชียงใหม่' ? 'selected' : '' }}>เชียงใหม่</option>
-                <option value="เชียงราย" {{ $vehicle->province == 'เชียงราย' ? 'selected' : '' }}>เชียงราย</option>
-            </select>
-            <br>
-
-            <label>เลือกประเภทรถ</label>
-            <div>
-                <input type="radio" id="car" name="vehicle_type" value="รถยนต์"
-                    {{ $vehicle->vehicle_type == 'รถยนต์' ? 'checked' : '' }}> รถยนต์
-                <input type="radio" id="motorcycle" name="vehicle_type" value="มอเตอร์ไซค์"
-                    {{ $vehicle->vehicle_type == 'มอเตอร์ไซค์' ? 'checked' : '' }}> มอเตอร์ไซค์
+            <div class="input-wrap">
+                <label for="license_plate">เลขทะเบียนรถ</label>
+                <input type="text" id="license_plate" name="license_plate" value="{{ $vehicle->license_plate }}" required>
             </div>
-            <br>
 
-            <button type="submit">บันทึกการแก้ไข</button>
+            <div class="input-wrap">
+                <label for="province">เลือกจังหวัด</label>
+                <select id="province" name="province" required>
+                    <option value="" disabled>เลือกจังหวัด</option>
+                    <option value="กรุงเทพมหานคร" {{ $vehicle->province == 'กรุงเทพมหานคร' ? 'selected' : '' }}>
+                        กรุงเทพมหานคร
+                    </option>
+                    <option value="เชียงใหม่" {{ $vehicle->province == 'เชียงใหม่' ? 'selected' : '' }}>เชียงใหม่</option>
+                    <option value="เชียงราย" {{ $vehicle->province == 'เชียงราย' ? 'selected' : '' }}>เชียงราย</option>
+                </select>
+            </div>
+
+            <div class="input-wrap">
+                <label>เลือกประเภทรถ</label>
+                <div>
+                    <input type="radio" id="car" name="vehicle_type" value="รถยนต์"
+                        {{ $vehicle->vehicle_type == 'รถยนต์' ? 'checked' : '' }}> <span class="input-radio">รถยนต์</span>
+                    <input type="radio" id="motorcycle" name="vehicle_type" value="มอเตอร์ไซต์"
+                        {{ $vehicle->vehicle_type == 'มอเตอร์ไซต์' ? 'checked' : '' }}> <span
+                        class="input-radio">มอเตอร์ไซต์</span>
+                </div>
+            </div>
+
+            <button type="submit" class="button-submit">อัพเดตข้อมูล</button>
         </form>
-        <a href="{{ route('vehicle.index') }}">กลับไปหน้าข้อมูลรถ</a>
     </div>
-</body>
-
-</html>
+@endsection

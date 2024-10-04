@@ -4,25 +4,32 @@ body {
     background-color: #011b60;
 }
 header {
-    width: 100%;
-    box-shadow: 0px 2px 15px black;
+    display: flex;
     background-color: #ffffff;
     color: #011b60;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    box-shadow: 0px 2px 15px black;
+    padding: 15px;
 }
-
 header h3 {
-    margin-left: 15px;
+    margin-left: 10px;
+    width: 50%;
 }
-
+header img {
+    margin-left: 5%;
+    width: 60px;
+    height: auto;
+}
 header form {
     display: flex;
     margin-left: auto;
     margin-right: 15px;
     gap: 15px;
+}
+a {
+    margin-right: 30px;
+    color: #011b60;
+    text-decoration: none;
+    font-weight: bold;
 }
 .success {
     width: 100vw;
@@ -161,4 +168,27 @@ table {
     font-size: 16px;
     border-radius: 5px;
     border: 1px solid #616161;
+}
+.navigation-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    margin-right: 0;
+}
+.navigation-wrap > a {
+    height: 20px;
+    font-size: 18px;
+}
+.sidebar-logout {
+    border: 1px solid red;
+    border: 0;
+    outline: 0;
+    margin: 0;
+    padding: 0;
+    color: #011b60;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #fff;
+    cursor: pointer;
 }

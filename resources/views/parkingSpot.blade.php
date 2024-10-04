@@ -16,15 +16,19 @@
     @if (session('errors'))
         <div class="error">{{ session('errors') }}</div>
     @endif
-
     <header>
+        <a href="{{ url('/') }}"><img src="../../img/logo.png" alt=""></a>
         <h3>ParkingZone</h3>
-
-        <form id="login" method="POST" action="{{ route('logout') }}">
-            @csrf
-            <p>โปรไฟล์</p>
-            <button type="submit">Logout</button>
-        </form>
+        <div class="navigation-wrap">
+            <a href="{{ route('reservations.index') }}">ประวัติการจอง</a>
+            <a href="{{ route('vehicle.create') }}">เพิ่มข้อมูลรถ</a>
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button type="submit" class="sidebar-logout">
+                    logout
+                </button>
+            </form>
+        </div>
     </header>
 
     <div class="container">
@@ -34,32 +38,45 @@
             <div class="spot-table">
                 @foreach ($floor['spots'] as $spot)
                     <form method="POST" action="{{ route('user-parking-spots.update', $spot['id']) }}"
-                        id="select-spot-form">
+                        id="select-spot-form"
+                        onsubmit="return  selectSpot(event, {{ (bool) $spot['is_available'] }}, {{ $spot['id'] }})">
                         @csrf
                         @method('PATCH')
-                        <button type="submit"
-                            class="spot-item {{ $spot['spot_type'] == 'รถยนตร์' ? 'spot-item-cars' : 'spot-item-motorcycle' }} {{ $spot['is_available'] ? 'spot-item-available' : 'spot-item-unavailable' }}"
-                            onclick="selectSpot({{ (bool) $spot['is_available'] }})">
-                            <span>{{ $spot['spot_number'] }}</span>
-                            <input type="number" name="dashboard_id" value="{{ $dashboardId }}"
-                                style="display: none">
-                            <img class='spot-item-img'
-                                src="{{ $spot['spot_type'] == 'รถยนตร์' ? asset('/car_icon.png') : asset('/motorcycle_icon.png') }}"
-                                alt="">
-                        </button>
+                        <input type="number" name="dashboard_id" value="{{ $dashboardId }}" style="display: none">
+
+                        @if ($spot['is_available'])
+                            <button type="submit"
+                                class="spot-item {{ $spot['spot_type'] == 'รถยนต์' ? 'spot-item-cars' : 'spot-item-motorcycle' }} spot-item-available">
+                                <span>{{ $spot['spot_number'] }}</span>
+                                <img class='spot-item-img'
+                                    src="{{ $spot['spot_type'] == 'รถยนต์' ? asset('/car_icon.png') : asset('/motorcycle_icon.png') }}"
+                                    alt="">
+                            </button>
+                        @else
+                            <button type="reset"
+                                class="spot-item {{ $spot['spot_type'] == 'รถยนต์' ? 'spot-item-cars' : 'spot-item-motorcycle' }} spot-item-unavailable">
+                                <span>{{ $spot['spot_number'] }}</span>
+                                <img class='spot-item-img'
+                                    src="{{ $spot['spot_type'] == 'รถยนต์' ? asset('/car_icon.png') : asset('/motorcycle_icon.png') }}"
+                                    alt="">
+                            </button>
+                        @endif
                     </form>
                 @endforeach
             </div>
         @endforeach
     </div>
     <script>
-        function selectSpot(isAvailable) {
+        function selectSpot(event, isAvailable, spotId) {
             if (!isAvailable) {
                 event.preventDefault();
+                console.log('herere isAvailable', isAvailable)
+                return false;
             }
             const form = document.getElementById('select-spot-form');
-            form.action = `/parking-spots/${spot['id']}`;
+            form.action = `/parking-spots/${spotId}`;
             form.method = 'PATCH';
+            return true;
         }
     </script>
 </body>

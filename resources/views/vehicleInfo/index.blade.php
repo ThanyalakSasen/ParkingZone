@@ -1,77 +1,13 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+@extends('layouts.sidebar')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ข้อมูลรถของคุณ</title>
+@section('title', 'ข้อมูลรถของคุณ')
+
+@push('styles')
     <link rel="stylesheet" href="{{ asset('user-vehicle.css') }}">
-    <link rel="stylesheet" href="{{ asset('nav.css') }}">
-    <style>
-        .main-content a {
-            color: black;
-            margin-right: 15px;
-        }
+@endpush
 
-        .btn a {
-            margin-left: auto;
-            margin-right: auto;
-            text-align: center;
-            color: white;
-        }
-
-        ul li button {
-            background-color: #000048;
-            border: 1px solid #000048;
-            color: white;
-            font-size: 18px;
-
-        }
-
-        ul li button:hover {
-            background-color: white;
-            border: 1px solid white;
-            color: #000048;
-        }
-    </style>
-
-</head>
-
-<body>
-    {{-- @if (session('success'))
-    <div class="success">{{ session('success') }}</div>
-@endif
-@if (session('errors'))
-    <div class="error">{{ session('errors') }}</div>
-@endif --}}
-
-
-    <div class="sidebar">
-        <div class="container">
-            <!-- รูปภาพผู้ใช้อยู่ข้างบน -->
-            <div class="profile-image-container">
-                <div class="profile-image" id="profilePreview">
-                    <img src="https://via.placeholder.com/120" alt="Profile Image">
-                </div>
-            </div>
-
-            <p>{{ $user->email }}</p>
-
-            <ul>
-                <li><a href="{{ route('profile.edit') }}"><i class="fas fa-user"></i> ข้อมูลส่วนตัว</a></li>
-                <li><a href="{{ route('vehicle.index') }}"><i class="fas fa-car"></i> ข้อมูลรถของคุณ</a></li>
-                <li>
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <button type="submit">Logout</button>
-                    </form>
-                </li>
-            </ul>
-        </div>
-    </div>
-
-
-    <div class="main-content">
+@section('content')
+    <div class="container">
         <h1>ข้อมูลรถของคุณ</h1>
         <button class="btn" id="addCarBtn" onclick="checkCarLimit(event, {{ $vehicles->count() }})"><a
                 href="{{ route('vehicle.create') }}">เพิ่มรถใหม่</a></button>
@@ -93,12 +29,12 @@
                         <td>{{ $vehicle->province }}</td>
                         <td>{{ $vehicle->vehicle_type }}</td>
                         <td>
-                            <a href="{{ route('vehicle.edit', $vehicle->id) }}">แก้ไข</a>
-                            <form method="POST" action="{{ route('vehicle.delete', $vehicle->id) }}"
-                                style="display:inline;" onsubmit="return confirm('คุณต้องการลบรถคันนี้หรือไม่?')">
+                            <a href="{{ route('vehicle.edit', $vehicle->id) }}" class="editCar">แก้ไข</a>
+                            <form method="POST" action="{{ route('vehicle.delete', $vehicle->id) }}" style="display:inline;"
+                                onsubmit="return confirm('คุณต้องการลบรถคันนี้หรือไม่?')">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit">ลบ</button>
+                                <button type="submit" class="deleteCar">ลบ</button>
                             </form>
                         </td>
                     </tr>
@@ -119,7 +55,4 @@
             return true; // ถ้าไม่เกิน 4 คัน ให้ไปต่อ
         }
     </script>
-
-</body>
-
-</html>
+@endsection

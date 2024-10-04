@@ -23,4 +23,9 @@ class Reservation extends Model
         'parking_status',
         'price',
     ];
+
+    public function dashboard()
+    {
+        return $this->belongsTo(Dashboard::class, 'dashboard_id');
+    }
 }

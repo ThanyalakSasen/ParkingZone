@@ -25,7 +25,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/dashboard', [DashboardController::class, 'create'])->name('dashboard.create');
 
     Route::get('/reservations', [ReservationController::class, 'index'])->name('reservations.index');
-    Route::get('/reservations/{id}', [ReservationController::class, 'show'])->name('reservations.show');
 
     Route::get('/payments', [PaymentController::class, 'index'])->name('payment.index');
     Route::post('/payments', [PaymentController::class, 'create'])->name('payment.create');

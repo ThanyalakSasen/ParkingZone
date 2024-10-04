@@ -60,7 +60,6 @@
 
             discountRate = parseFloat(selectedPromotion.discount_percentage) / 100;
             totalAfterDisCount = (1 - discountRate) * totalBeforeDiscount;
-            console.log((100 - parseFloat(selectedPromotion.discount_percentage)))
 
             document.getElementById('originalPrice').innerText = totalBeforeDiscount;
             document.getElementById('discountedPrice').innerText = totalAfterDisCount;

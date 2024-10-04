@@ -36,7 +36,10 @@ class PaymentController extends Controller
 
         $user = Auth::user();
         $dashboard = Dashboard::where('id', $validated['dashboard_id'])->first();
-        $reserveNumber = 'R_DESHBOARD_ID_' . $dashboard->id . '_SPOT_ID_' . $validated['spot_id'];
+        $parkingSpot = ParkingSpot::findOrFail($validated['spot_id']);
+        $parkingSpot->update([
+            'is_available' => false,
+        ]);
 
         $reservation =  Reservation::create([
             'dashboard_id' => $validated['dashboard_id'],
@@ -44,16 +47,11 @@ class PaymentController extends Controller
             'booking_date' => Carbon::now()->format('Y-m-d\TH:i'),
             'start_time' => $dashboard->date_entry,
             'end_time' => $dashboard->date_exit,
-            'reservation_number' => $reserveNumber,
+            'reservation_number' => $parkingSpot->spot_number,
             'parking_type' => $dashboard->shipping_type,
             'license_plate' => $dashboard->license_plate,
             'parking_status' => 'ไม่ว่าง',
             'price' => $validated['price'],
-        ]);
-
-        $parkingSpot = ParkingSpot::findOrFail($validated['spot_id']);
-        $parkingSpot->update([
-            'is_available' => false,
         ]);
 
         if ($dashboard->shipping_type == 'hourly') {
