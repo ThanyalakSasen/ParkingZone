@@ -39,7 +39,7 @@
             <div class="select-dropdown">
                 <label for="spot_type">ประเภท:</label>
                 <select id="spot_type" name='spot_type'>
-                    <option value="รถยนตร์">รถยนตร์</option>
+                    <option value="รถยนต์">รถยนต์</option>
                     <option value="มอเตอรไซต์">มอเตอรไซต์</option>
                 </select>
             </div>
@@ -52,11 +52,11 @@
             <h3>ชั้นที่: {{ $floor['floor'] . ' ' }} ({{ $floor['name'] }})</h3>
             <div class="spot-table">
                 @foreach ($floor['spots'] as $spot)
-                    <div class="spot-item {{ $spot['spot_type'] == 'รถยนตร์' ? 'spot-item-cars' : 'spot-item-motorcycle' }} {{ $spot['is_available'] ? 'spot-item-available' : 'spot-item-unavailable' }}"
+                    <div class="spot-item {{ $spot['spot_type'] == 'รถยนต์' ? 'spot-item-cars' : 'spot-item-motorcycle' }} {{ $spot['is_available'] ? 'spot-item-available' : 'spot-item-unavailable' }}"
                         onclick="editSpot({{ json_encode($spot) }}, {{ json_encode($floor) }})">
                         <span>{{ $spot['spot_number'] }}</span>
                         <img class='spot-item-img'
-                            src="{{ $spot['spot_type'] == 'รถยนตร์' ? asset('/car_icon.png') : asset('/motorcycle_icon.png') }}"
+                            src="{{ $spot['spot_type'] == 'รถยนต์' ? asset('/car_icon.png') : asset('/motorcycle_icon.png') }}"
                             alt="">
                     </div>
                 @endforeach

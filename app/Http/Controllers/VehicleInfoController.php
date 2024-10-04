@@ -26,10 +26,9 @@ class VehicleInfoController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            
             'license_plate' => 'required|string|max:10|unique:vehicle_infos,license_plate',
             'province' => 'required|string|max:50',
-            'vehicle_type' => 'required|in:รถยนต์,มอเตอร์ไซค์',
+            'vehicle_type' => 'required|in:รถยนต์,มอเตอร์ไซต์',
         ]);
 
         $user = Auth::user();
@@ -57,7 +56,7 @@ class VehicleInfoController extends Controller
         $validated = $request->validate([
             'license_plate' => 'required|string|max:10',
             'province' => 'required|string|max:50',
-            'vehicle_type' => 'required|in:รถยนต์,มอเตอร์ไซค์',
+            'vehicle_type' => 'required|in:รถยนต์,มอเตอร์ไซต์',
         ]);
 
         $user = Auth::user();

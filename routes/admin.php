@@ -79,7 +79,6 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     # อ่านเพิ่มใน https://laravel.com/docs/11.x/controllers#actions-handled-by-resource-controllers
     Route::resource('promotions', PromotionController::class)->names([
         'index'   => 'admin.promotions.index',
-        'create'   => 'admin.promotions.create',
         'store'   => 'admin.promotions.store',
         'update'  => 'admin.promotions.update',
         'destroy' => 'admin.promotions.destroy',

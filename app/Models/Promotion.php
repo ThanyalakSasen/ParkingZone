@@ -9,6 +9,8 @@ class Promotion extends Model
 {
     use HasFactory;
 
+    protected $table = 'promotions';
+
     protected $fillable = [
         'festival_name',
         'start_date',
@@ -16,8 +18,6 @@ class Promotion extends Model
         'hourly_price',
         'daily_price',
         'monthly_price',
-        'hourly_discounted',
-        'daily_discounted',
-        'monthly_discounted',
+        'discount_percentage',
     ];
 }

@@ -11,62 +11,53 @@ class PromotionController extends Controller
     public function index()
     {
         $promotions = Promotion::all();
-        return view('admin.promotions.index', compact('promotions'));
-    }
-
-    public function create()
-    {
-        return view('admin.promotions.create');
+        return view('admin.promotion', compact('promotions'));
     }
 
     public function store(Request $request)
     {
-        # comment บรรทัดนี้ ถ้าใช่ validate field พวกนี้
-        $request->request->add([
-            'monthly_price' => 0,
-            'monthly_discounted' => 0,
-        ]);
-
-        $request->validate([
+        $validated = $request->validate([
             'festival_name' => 'required|string|max:255',
             'start_date' => 'required|date',
             'end_date' => 'required|date',
             'hourly_price' => 'required|numeric',
             'daily_price' => 'required|numeric',
-            // 'monthly_price' => 'required|numeric',
-            'hourly_discounted' => 'required|numeric',
-            'daily_discounted' => 'required|numeric',
-            // 'monthly_discounted' => 'required|numeric',
+            'monthly_price' => 'required|numeric',
+            'discount_percentage' => 'required|numeric|min:0|max:100',
         ]);
 
-        $promotion = Promotion::create($request->all());
+        $promotion = new Promotion();
+        $promotion->festival_name = $validated['festival_name'];
+        $promotion->start_date = $validated['start_date'];
+        $promotion->end_date = $validated['end_date'];
+        $promotion->hourly_price = $validated['hourly_price'];
+        $promotion->daily_price = $validated['daily_price'];
+        $promotion->monthly_price = $validated['monthly_price'];
+
+        $discount = $validated['discount_percentage'] / 100;
+        $promotion->hourly_discounted = $promotion->hourly_price * (1 - $discount);
+        $promotion->daily_discounted = $promotion->daily_price * (1 - $discount);
+        $promotion->monthly_discounted = $promotion->monthly_price * (1 - $discount);
+        $promotion->save();
 
         return redirect()->back()->with('success', 'Promotion "' . $promotion->festival_name . '" saved successfully!');
     }
 
     public function update(Request $request, $id)
     {
-        # comment บรรทัดนี้ ถ้าใช่ validate field พวกนี้
-        $request->request->add([
-            'monthly_price' => 0,
-            'monthly_discounted' => 0,
-        ]);
-
-        $request->validate([
+        $validated = $request->validate([
             'festival_name' => 'required|string|max:255',
             'start_date' => 'required|date',
             'end_date' => 'required|date',
             'hourly_price' => 'required|numeric',
             'daily_price' => 'required|numeric',
-            // 'monthly_price' => 'required|numeric',
-            'hourly_discounted' => 'required|numeric',
-            'daily_discounted' => 'required|numeric',
-            // 'monthly_discounted' => 'required|numeric',
+            'monthly_price' => 'required|numeric',
+            'discount_percentage' => 'required|numeric|min:0|max:100',
         ]);
 
         // Find promotion and update
         $promotion = Promotion::findOrFail($id);
-        $promotion->update($request->all());
+        $promotion->update($validated);
 
         return redirect()->route('admin.promotions.index')->with('success', 'Promotion updated successfully.');
     }

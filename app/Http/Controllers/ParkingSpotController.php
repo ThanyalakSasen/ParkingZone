@@ -23,14 +23,11 @@ class ParkingSpotController extends Controller
             'dashboard_id' => 'required|numeric',
         ]);
 
-        # ได้ dashboardId เอาไว้ใช้กับ reservation
         $dashboardId = $validate['dashboard_id'];
-
-        $parkingSpot = ParkingSpot::findOrFail($id);
-        $parkingSpot->update([
-            'is_available' => false,
+        session([
+            'spotId' => $id,
+            'dashboardId' => $dashboardId,
         ]);
-
         return redirect()->route('payment.index');
     }
 }

@@ -58,17 +58,19 @@
         <div class="error">{{ session('errors') }}</div>
     @endif
     <header>
+        <a href="{{ url('/') }}"><img src="{{ asset('img/logo.png') }}" alt=""></a>
         <h3>ParkingZone</h3>
-        <form method="POST" action="{{ route('logout') }}">
-            @csrf
-            <p>โปรไฟล์</p>
-            <button type="submit">Logout</button>
-        </form>
+        <div class="navigation-wrap">
+            <a href="{{ route('reservations.index') }}">ประวัติการจอง</a>
+            <a href="{{ route('vehicle.create') }}">เพิ่มข้อมูลรถ</a>
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button type="submit" class="sidebar-logout">
+                    logout
+                </button>
+            </form>
+        </div>
     </header>
-
-    @if (session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
 
     <form method="POST" action="{{ route('dashboard.create') }}" id="main">
         @csrf
@@ -79,7 +81,7 @@
                     onchange="showForm('hourly')">รายชั่วโมง</input>
             </div>
             <div>
-                <input class="radio-wrap" type="radio" id="dayly" name="shipping_type" value="day"
+                <input class="radio-wrap" type="radio" id="dayly" name="shipping_type" value="dayly"
                     onchange="showForm('day')">รายวัน</input>
             </div>
             <div>
@@ -99,7 +101,12 @@
         <div id="carForm" class="dropdow-wrap">
             <label for="license_plate1">เลือกหมายเลขทะเบียน</label>
             <select class="dropdown-select" name="license_plate1">
-                <option value="1กว 6649">1กว 6649</option>
+                {{ $cars = $vehicleInfos->filter(function ($vehicleInfo) {
+                    return $vehicleInfo->vehicle_type == 'รถยนต์';
+                }) }}
+                @if (isset($cars) && count($cars) == 0)
+                    <option value="" disabled selected>ไม่มีหมายเลขทะเบียนรถยนต์</option>
+                @endif
                 @foreach ($vehicleInfos as $vehicleInfo)
                     @if ($vehicleInfo->vehicle_type == 'รถยนต์')
                         <option value="{{ $vehicleInfo->license_plate }}">{{ $vehicleInfo->license_plate }}</option>
@@ -107,10 +114,16 @@
                 @endforeach
             </select>
         </div>
+
         <div id="motorcycleForm" class="dropdow-wrap">
             <label for="license_plate1">เลือกหมายเลขทะเบียน</label>
             <select class="dropdown-select" name="license_plate2">
-                <option value="ขม 214">ขม 214</option>
+                {{ $cars = $vehicleInfos->filter(function ($vehicleInfo) {
+                    return $vehicleInfo->vehicle_type == 'มอเตอร์ไซต์';
+                }) }}
+                @if (isset($cars) && count($cars) == 0)
+                    <option value="" disabled selected>ไม่มีหมายเลขทะเบียนมอเตอร์ไซต์</option>
+                @endif
                 @foreach ($vehicleInfos as $vehicleInfo)
                     @if ($vehicleInfo->vehicle_type == 'มอเตอร์ไซต์')
                         <option value="{{ $vehicleInfo->license_plate }}">{{ $vehicleInfo->license_plate }}</option>
@@ -127,35 +140,8 @@
             <input class="input-duration" id="duration-input" type="number" name="duration" value="1" required>
         </div>
 
-
-
         <button type="submit" id="subbtn">จอง</button>
     </form>
-
-    {{-- <table>
-        <thead>
-            <tr>
-                <th>ประเภทการจอง</th>
-                <th>ประเภทของรถ</th>
-                <th>หมายเลขทะเบียน</th>
-                <th>วันที่เข้า</th>
-                <th>วันที่ออก</th>
-                <th>ระยะเวลา</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($dashboards as $dashboard)
-                <tr>
-                    <td>{{ $dashboard->shipping_type }}</td>
-                    <td>{{ $dashboard->vehicle_type }}</td>
-                    <td>{{ $dashboard->license_plate }}</td>
-                    <td>{{ $dashboard->date_entry->format('Y-m-d H:i:s') }}</td>
-                    <td>{{ $dashboard->date_exit->format('Y-m-d H:i:s') }}</td>
-                    <td>{{ $dashboard->duration }} ชั่วโมง</td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table> --}}
 </body>
 
 </html>

@@ -40,27 +40,19 @@
                     <input type="number" id="daily_price" name="daily_price" step="0.01"
                         value="{{ isset($promotionToEdit) ? $promotionToEdit->daily_price : '' }}" required>
                 </div>
-                {{-- <div>
-                    <label for="monthly_price">ราคาเต็มรายเดือน:</label>
-                    <input type="number" id="monthly_price" name="monthly_price" value="{{ isset($promotionToEdit) ? $promotionToEdit->monthly_price : '' }}" required>
-                </div> --}}
             </div>
 
             <div class="price-group">
                 <div>
-                    <label for="hourly_discounted">ราคาที่ลดแล้วรายชั่วโมง:</label>
-                    <input type="number" id="hourly_discounted" name="hourly_discounted" step="0.01"
-                        value="{{ isset($promotionToEdit) ? $promotionToEdit->hourly_discounted : '' }}" required>
+                    <label for="monthly_price">ราคาเต็มรายเดือน:</label>
+                    <input type="number" id="monthly_price" name="monthly_price"
+                        value="{{ isset($promotionToEdit) ? $promotionToEdit->monthly_price : '' }}" required>
                 </div>
                 <div>
-                    <label for="daily_discounted">ราคาที่ลดแล้วรายวัน:</label>
-                    <input type="number" id="daily_discounted" name="daily_discounted" step="0.01"
-                        value="{{ isset($promotionToEdit) ? $promotionToEdit->daily_discounted : '' }}" required>
+                    <label for="discount_percentage">ส่วนลด (%):</label>
+                    <input type="number" id="discount_percentage" name="discount_percentage"
+                        value="{{ isset($promotionToEdit) ? $promotionToEdit->discount_percentage : '' }}" required>
                 </div>
-                {{-- <div>
-                    <label for="monthly_discounted">ราคาที่ลดแล้วรายเดือน:</label>
-                    <input type="number" id="monthly_discounted" name="monthly_discounted" value="{{ isset($promotionToEdit) ? $promotionToEdit->monthly_discounted : '' }}" required>
-                </div> --}}
             </div>
             <input id="input-form-submit" type="submit" value="บันทึกโปรโมชั่น">
 
@@ -79,12 +71,10 @@
                         <th>ชื่อโปรโมชัน</th>
                         <th>วันเริ่ม</th>
                         <th>วันสิ้นสุด</th>
-                        <th>ราคาเต็มรายชั่วโมง</th>
-                        <th>ราคาเต็มรายวัน</th>
-                        {{-- <th>ราคาเต็มรายเดือน</th> --}}
-                        <th>ราคาโปรโมชั่นรายชั่วโมง</th>
-                        <th>ราคาโปรโมชั่นรายวัน</th>
-                        {{-- <th>ราคาโปรโมชั่นรายเดือน</th> --}}
+                        <th>ราคารายชั่วโมง</th>
+                        <th>ราคารายวัน</th>
+                        <th>ราคารายเดือน</th>
+                        <th>ส่วนลด(%)</th>
                         <th>การจัดการ</th>
                     </tr>
                 </thead>
@@ -97,18 +87,19 @@
                             <td>{{ $promotion->end_date }}</td>
                             <td>{{ $promotion->hourly_price }}</td>
                             <td>{{ $promotion->daily_price }}</td>
-                            {{-- <td>{{ $promotion->monthly_price }}</td> --}}
-                            <td>{{ $promotion->hourly_discounted }}</td>
-                            <td>{{ $promotion->daily_discounted }}</td>
-                            {{-- <td>{{ $promotion->monthly_discounted }}</td> --}}
+                            <td>{{ $promotion->monthly_price }}</td>
+                            <td>{{ $promotion->discount_percentage }}</td>
                             <td>
-                                <form method="POST" action="{{ route('admin.promotions.destroy', $promotion->id) }}"
-                                    style="display:inline;" onsubmit="return confirmDelete();">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="delete-btn">ลบ</button>
-                                </form>
-                                <button class="edit-btn" onclick="editPromotion({{ $promotion }})">แก้ไข</button>
+                                <div>
+                                    <button class="manage-btn edit"
+                                        onclick="editPromotion({{ $promotion }})">แก้ไข</button>
+                                    <form method="POST" action="{{ route('admin.promotions.destroy', $promotion->id) }}"
+                                        style="display:inline;" onsubmit="return confirmDelete();">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="manage-btn delete">ลบ</button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
                     @endforeach
@@ -130,10 +121,8 @@
             document.getElementById('end_date').value = promotion.end_date;
             document.getElementById('hourly_price').value = promotion.hourly_price;
             document.getElementById('daily_price').value = promotion.daily_price;
-            // document.getElementById('monthly_price').value = promotion.monthly_price;
-            document.getElementById('hourly_discounted').value = promotion.hourly_discounted;
-            document.getElementById('daily_discounted').value = promotion.daily_discounted;
-            // document.getElementById('monthly_discounted').value = promotion.monthly_discounted;
+            document.getElementById('monthly_price').value = promotion.monthly_price;
+            document.getElementById('discount_percentage').value = promotion.discount_percentage;
 
             window.scrollTo({
                 top: 0,

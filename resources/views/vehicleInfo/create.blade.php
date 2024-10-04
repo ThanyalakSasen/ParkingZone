@@ -1,49 +1,23 @@
-<!DOCTYPE html>
-<html lang="th">
+@extends('layouts.sidebar')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>เพิ่มข้อมูลรถใหม่</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+@section('title', 'เพิ่มข้อมูลรถใหม่')
 
-    <link rel="stylesheet" href="{{ asset('nav.css') }}">
-    <link rel="stylesheet" href="{{ asset('uer-create-info.css') }}">
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('user-vehicle-create.css') }}">
+@endpush
 
-</head>
-
-<body>
-    <div class="sidebar">
-        <div class="container">
-            <!-- รูปภาพผู้ใช้อยู่ข้างบน -->
-            <div class="profile-image-container">
-                <div class="profile-image" id="profilePreview">
-                    <img src="https://via.placeholder.com/120" alt="Profile Image">
-                </div>
-            </div>
-            <p>{{ $user->email }}</p>
-            <ul>
-                <li><a href="{{ route('profile.edit') }}"><i class="fas fa-user"></i> ข้อมูลส่วนตัว</a></li>
-                <li><a href="{{ route('vehicle.index') }}"><i class="fas fa-car"></i> ข้อมูลรถของคุณ</a></li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="main-content">
-
+@section('content')
+    <div class="container">
         <h2>เพิ่มข้อมูลรถใหม่</h2>
-
         <form action="{{ route('vehicle.store') }}" method="POST">
             @csrf
-            <div class="license">
-                <label for="license_plate">เลขทะเบียนรถ : </label> <br>
-                <input type="text" id="license_plate" name="license_plate" placeholder="กรอกเลขทะเบียนรถของคุณ"
-                    required>
+            <div class="input-wrap">
+                <label for="license_plate">เลขทะเบียนรถ</label>
+                <input type="text" id="license_plate" name="license_plate" placeholder="กรอกเลขทะเบียนรถของคุณ" required>
             </div>
 
-            <div class="province">
-                <!-- จังหวัด -->
-                <label for="province">เลือกจังหวัด : </label><br>
+            <div class="input-wrap">
+                <label for="province">เลือกจังหวัด</label>
                 <select id="province" name="province" required>
                     <option value="" disabled selected>เลือกจังหวัด</option>
                     <!-- ภาคเหนือ -->
@@ -145,22 +119,17 @@
                 </select>
             </div>
 
-            <div class="vehicle">
-                <label>เลือกประเภทรถ : </label> <br>
-                <div class="checkbox-group">
-                    <label><input type="radio" name="vehicle_type" value="รถยนต์" required> รถยนต์</label>
-                    <label><input type="radio" name="vehicle_type" value="มอเตอร์ไซค์" required>
-                        มอเตอร์ไซค์</label>
+            <div class="input-wrap">
+                <label>เลือกประเภทรถ</label>
+                <div>
+                    <label><input type="radio" name="vehicle_type" value="รถยนต์" required><span
+                            class="input-radio">รถยนต์</span></label>
+                    <label><input type="radio" name="vehicle_type" value="มอเตอร์ไซต์" required>
+                        <span class="input-radio">มอเตอร์ไซต์</span></label>
                 </div>
             </div>
-            <div class="btnsub">
-                <button type="submit">บันทึกข้อมูล</button>
-                <a href="{{ route('vehicle.index') }}">กลับไปหน้าหลัก</a>
-            </div>
 
+            <button type="submit" class="button-submit">บันทึกข้อมูล</button>
         </form>
     </div>
-
-</body>
-
-</html>
+@endsection

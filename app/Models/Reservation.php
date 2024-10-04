@@ -12,6 +12,8 @@ class Reservation extends Model
     protected $table = 'reservations';
 
     protected $fillable = [
+        'dashboard_id',
+        'user_id',
         'booking_date',
         'start_time',
         'end_time',
@@ -21,4 +23,9 @@ class Reservation extends Model
         'parking_status',
         'price',
     ];
+
+    public function dashboard()
+    {
+        return $this->belongsTo(Dashboard::class, 'dashboard_id');
+    }
 }
