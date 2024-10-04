@@ -79,7 +79,7 @@
                     onchange="showForm('hourly')">รายชั่วโมง</input>
             </div>
             <div>
-                <input class="radio-wrap" type="radio" id="dayly" name="shipping_type" value="day"
+                <input class="radio-wrap" type="radio" id="dayly" name="shipping_type" value="dayly"
                     onchange="showForm('day')">รายวัน</input>
             </div>
             <div>

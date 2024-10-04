@@ -5,36 +5,65 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Http\Controllers\Controller;
+use App\Models\Dashboard;
+use App\Models\ParkingSpot;
+use App\Models\Promotion;
+use App\Models\Reservation;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class PaymentController extends Controller
 {
-    public function index($dashboardId): View
+    public function index(): View
     {
+        $spotId = session('spotId');
+        $dashboardId = session('dashboardId');
+        $promotions = Promotion::all();
 
-        return view('payment',compact('dashboardId'));
+        $dashboard = Dashboard::where('id', $dashboardId)->first();
+        $shippingType = $dashboard->shipping_type;
+        $duration = $dashboard->duration;
+        return view('payment', compact('spotId', 'dashboardId', 'promotions', 'shippingType', 'duration'));
     }
 
     public function create(Request $request)
     {
-        $user = Auth::user(); 
-        //สร้างreservation  
-        // 'dashboard_id',
-        // 'user_id',
-        // 'booking_date',
-        // 'start_time',
-        // 'end_time',
-        // 'reservation_number',
-        // 'parking_type',
-        // 'license_plate',
-        // 'parking_status',
-        // 'price',
+        $validated = $request->validate([
+            'spot_id' => 'required|numeric',
+            'dashboard_id' => 'required|numeric',
+            'price' => 'required|numeric',
+        ]);
 
-        // 'shipping_type',
-        // 'vehicle_type',
-        // 'license_plate',
-        // 'date_entry',
-        // 'date_exit',
-        // 'duration',
-        return "ชำระเงินเสร็จสิ้นสำหรับ: " . $request->input('email') . " จำนวนเงิน: " . $request->input('total_amount');
+        $user = Auth::user();
+        $dashboard = Dashboard::where('id', $validated['dashboard_id'])->first();
+        $reserveNumber = 'R_DESHBOARD_ID_' . $dashboard->id . '_SPOT_ID_' . $validated['spot_id'];
+
+        $reservation =  Reservation::create([
+            'dashboard_id' => $validated['dashboard_id'],
+            'user_id' => $user->id,
+            'booking_date' => Carbon::now()->format('Y-m-d\TH:i'),
+            'start_time' => $dashboard->date_entry,
+            'end_time' => $dashboard->date_exit,
+            'reservation_number' => $reserveNumber,
+            'parking_type' => $dashboard->shipping_type,
+            'license_plate' => $dashboard->license_plate,
+            'parking_status' => 'ไม่ว่าง',
+            'price' => $validated['price'],
+        ]);
+
+        $parkingSpot = ParkingSpot::findOrFail($validated['spot_id']);
+        $parkingSpot->update([
+            'is_available' => false,
+        ]);
+
+        if ($dashboard->shipping_type == 'hourly') {
+            $reserseType = 'รายชั่วโมง';
+        } else if ($dashboard->shipping_type == 'dayly') {
+            $reserseType = 'รายวัน';
+        } else if ($dashboard->shipping_type == 'monthly') {
+            $reserseType = 'รายเดือน';
+        }
+
+        return view('paymentSuccess', compact('reservation', 'reserseType', 'parkingSpot'));
     }
 }
