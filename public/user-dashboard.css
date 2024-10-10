@@ -192,3 +192,14 @@ table {
     background-color: #fff;
     cursor: pointer;
 }
+.time_period{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.timerStart{
+    margin: 20px;
+    display: block;
+    font-weight: bold;
+    width: 90%;
+}

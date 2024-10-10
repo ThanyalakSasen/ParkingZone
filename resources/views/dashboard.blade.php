@@ -9,6 +9,30 @@
     <title>จองที่จอดรถ</title>
 
     <script>
+        // function showForm(type) {
+        //     const inputHourly = document.getElementById('hourly');
+        //     const inputDayly = document.getElementById('dayly');
+        //     const inputMonthly = document.getElementById('monthly');
+
+        //     const label = document.getElementById('duration-label');
+        //     const inputLabel = document.getElementById('duration-input');
+        //     const timeStart = document.getElementById('time_start');
+
+        //     if (inputHourly.checked) {
+        //         label.innerText = 'จำนวนชั่วโมง:';
+        //         inputLabel.min = 1;
+        //         inputLabel.max = 23;
+
+        //     } else if (inputDayly.checked) {
+        //         label.innerText = 'จำนวนวัน:';
+        //         inputLabel.min = 1;
+        //         inputLabel.max = 30;
+        //     } else {
+        //         label.innerText = 'จำนวนเดือน:';
+        //         inputLabel.min = 1;
+        //         inputLabel.max = 12;
+        //     }
+        // }
         function showForm(type) {
             const inputHourly = document.getElementById('hourly');
             const inputDayly = document.getElementById('dayly');
@@ -16,21 +40,30 @@
 
             const label = document.getElementById('duration-label');
             const inputLabel = document.getElementById('duration-input');
+            const timeStart = document.getElementById('time_start');
 
-            if (inputHourly.checked) {
-                label.innerText = 'จำนวนชั่วโมง:';
-                inputLabel.min = 1;
-                inputLabel.max = 23;
-            } else if (inputDayly.checked) {
+            if (type === 'dayly') {
+                inputDayly.checked = true;
                 label.innerText = 'จำนวนวัน:';
                 inputLabel.min = 1;
                 inputLabel.max = 30;
-            } else {
+                timeStart.style.display = 'none';
+            } else if (type === 'monthly') {
+                inputMonthly.checked = true;
                 label.innerText = 'จำนวนเดือน:';
                 inputLabel.min = 1;
                 inputLabel.max = 12;
+                timeStart.style.display = 'none';
+            } else if (type === 'hourly') {
+                inputHourly.checked = true;
+                label.innerText = 'จำนวนชั่วโมง:';
+                inputLabel.min = 1;
+                inputLabel.max = 23;
+                timeStart.style.display = 'block';
+                
             }
         }
+
 
         function showVehicleForm(type) {
             const carForm = document.getElementById('carForm');
@@ -74,7 +107,7 @@
 
     <form method="POST" action="{{ route('dashboard.create') }}" id="main">
         @csrf
-        <h3>ค้นหาที่จอดรถ</h3>
+        <h3>จองที่จอด</h3>
         <div class="shippingType">
             <div>
                 <input class="radio-wrap" type="radio" id="hourly" name="shipping_type" value="hourly" checked
@@ -131,14 +164,35 @@
                 @endforeach
             </select>
         </div>
+
         <div class="dropdow-wrap">
             <label for="date_entry">วันที่เข้า:</label>
-            <input class="input-date-time" type="datetime-local" name="date_entry" required>
+            <input class="input-date-time" type="date" name="date_entry" required>
         </div>
-        <div class="dropdow-wrap">
-            <label id='duration-label' for="duration"></label>
-            <input class="input-duration" id="duration-input" type="number" name="duration" value="1" required>
+        <div class="time_period">
+            {{-- <div class="timer" id="time_start">
+                <label for="time-start">เวลาที่นำรถเข้า</label>
+                <input type="time" id="time-start" name="time_start" min="08:00" max="23:00" step="3600" required />
+                <label for="time-end">เวลาที่นำรถออก</label>
+                <input type="number" id="hours" name="time_end" min="0" max="23" required>
+            </div> --}}
+            <div id="time_start" class="timerStart" >
+                <label for="start">เวลาที่นำรถเข้า</label> <br>
+                <select id="start" name="time_start">
+                    @for($i = 0; $i < 24; $i++)
+                        <option value="{{ str_pad($i, 2, '0', STR_PAD_LEFT) }}:00">
+                            {{ str_pad($i, 2, '0', STR_PAD_LEFT) }}:00
+                        </option>
+                    @endfor
+                </select>
+            </div>
+
+            <div class="dropdow-wrap">
+                <label id='duration-label' for="duration"></label>
+                <input class="input-duration" id="duration-input" type="number" name="duration" value="1" required>
+            </div>
         </div>
+        
 
         <button type="submit" id="subbtn">จอง</button>
     </form>

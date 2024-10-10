@@ -19,8 +19,10 @@ return new class extends Migration
             $table->dateTime("date_entry");
             $table->dateTime("date_exit");
             $table->integer('duration');
+            $table->time("time_start");
             $table->timestamps();
-            $table->softDeletes();
+            // $table->softDeletes();
+
         });
     }
 
@@ -30,5 +32,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('dashboards');
+        // $table->dropSoftDeletes();
     }
 };

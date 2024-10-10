@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('parking_spots', function (Blueprint $table) {
             $table->id();
             $table->foreignId('parking_floor_id')->constrained('parking_floors');
-            $table->string('spot_number');
+            $table->string('spot_number')->unique();
             $table->boolean('is_available')->default(true);
             $table->string('spot_type');
             $table->timestamps();

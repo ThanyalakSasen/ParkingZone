@@ -132,4 +132,12 @@
             <button type="submit" class="button-submit">บันทึกข้อมูล</button>
         </form>
     </div>
+
+    @if (session('errors'))
+        {{-- <div class="error">{{ session('errors') }}</div> --}}
+        <script>
+            alert("ป้ายทะเบียนซ้ำ กรุณากรอกใหม่อีกครั้ง");
+        </script>
+    @endif
+
 @endsection
