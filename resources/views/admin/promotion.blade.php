@@ -1,3 +1,4 @@
+{{-- promotion.blade.php --}}
 @extends('admin.layouts.sidebar')
 
 @section('title', 'เพิ่มโปรโมชัน')
@@ -29,33 +30,34 @@
             <input type="date" id="end_date" name="end_date"
                 value="{{ isset($promotionToEdit) ? $promotionToEdit->end_date : '' }}" required>
 
+            <label for="vehicle_type">ประเภทยานพาหนะ:</label>
+            <select id="vehicle_type" name="vehicle_type" onchange="updatePrices()" required>
+                <option value="car" {{ (isset($promotionToEdit) && $promotionToEdit->vehicle_type === 'car') ? 'selected' : '' }}>รถยนต์</option>
+                <option value="motorcycle" {{ (isset($promotionToEdit) && $promotionToEdit->vehicle_type === 'motorcycle') ? 'selected' : '' }}>มอเตอร์ไซค์</option>
+            </select>
+
             <div class="price-group">
                 <div>
                     <label for="hourly_price">ราคาเต็มรายชั่วโมง:</label>
-                    <input type="number" id="hourly_price" name="hourly_price" step="0.01"
-                        value="{{ isset($promotionToEdit) ? $promotionToEdit->hourly_price : '' }}" required>
+                    <input type="number" id="hourly_price" name="hourly_price" 
+                        value="{{ isset($promotionToEdit) ? $promotionToEdit->hourly_price : '40' }}" readonly>
                 </div>
                 <div>
                     <label for="daily_price">ราคาเต็มรายวัน:</label>
-                    <input type="number" id="daily_price" name="daily_price" step="0.01"
-                        value="{{ isset($promotionToEdit) ? $promotionToEdit->daily_price : '' }}" required>
+                    <input type="number" id="daily_price" name="daily_price" 
+                        value="{{ isset($promotionToEdit) ? $promotionToEdit->daily_price : '200' }}" readonly>
                 </div>
             </div>
 
             <div class="price-group">
-                <div>
-                    <label for="monthly_price">ราคาเต็มรายเดือน:</label>
-                    <input type="number" id="monthly_price" name="monthly_price"
-                        value="{{ isset($promotionToEdit) ? $promotionToEdit->monthly_price : '' }}" required>
-                </div>
                 <div>
                     <label for="discount_percentage">ส่วนลด (%):</label>
                     <input type="number" id="discount_percentage" name="discount_percentage"
                         value="{{ isset($promotionToEdit) ? $promotionToEdit->discount_percentage : '' }}" required>
                 </div>
             </div>
-            <input id="input-form-submit" type="submit" value="บันทึกโปรโมชั่น">
 
+            <input id="input-form-submit" type="submit" value="บันทึกโปรโมชั่น">
         </form>
 
         <div class="promotion-list" id="promotionList">
@@ -71,10 +73,9 @@
                         <th>ชื่อโปรโมชัน</th>
                         <th>วันเริ่ม</th>
                         <th>วันสิ้นสุด</th>
-                        <th>ราคารายชั่วโมง</th>
-                        <th>ราคารายวัน</th>
-                        <th>ราคารายเดือน</th>
-                        <th>ส่วนลด(%)</th>
+                        <th>ประเภทยานพาหนะ</th>
+                        <th>ราคารายชั่วโมงที่มีส่วนลด</th>
+                        <th>ราคารายวันที่มีส่วนลด</th>
                         <th>การจัดการ</th>
                     </tr>
                 </thead>
@@ -85,10 +86,9 @@
                             <td>{{ $promotion->festival_name }}</td>
                             <td>{{ $promotion->start_date }}</td>
                             <td>{{ $promotion->end_date }}</td>
-                            <td>{{ $promotion->hourly_price }}</td>
-                            <td>{{ $promotion->daily_price }}</td>
-                            <td>{{ $promotion->monthly_price }}</td>
-                            <td>{{ $promotion->discount_percentage }}</td>
+                            <td>{{ $promotion->vehicle_type === 'car' ? 'รถยนต์' : 'มอเตอร์ไซค์' }}</td>
+                            <td>{{ $promotion->hourly_discounted }} บาท</td>
+                            <td>{{ $promotion->daily_discounted }} บาท</td>
                             <td>
                                 <div>
                                     <button class="manage-btn edit"
@@ -119,10 +119,11 @@
             document.getElementById('festival_name').value = promotion.festival_name;
             document.getElementById('start_date').value = promotion.start_date;
             document.getElementById('end_date').value = promotion.end_date;
-            document.getElementById('hourly_price').value = promotion.hourly_price;
-            document.getElementById('daily_price').value = promotion.daily_price;
-            document.getElementById('monthly_price').value = promotion.monthly_price;
             document.getElementById('discount_percentage').value = promotion.discount_percentage;
+
+            // Set the vehicle type based on the promotion
+            document.getElementById('vehicle_type').value = promotion.vehicle_type;
+            updatePrices(); // Update the prices based on the vehicle type
 
             window.scrollTo({
                 top: 0,
@@ -142,6 +143,43 @@
             csrfInput.value = 'PUT';
             form.appendChild(csrfInput);
         }
+
+        function updatePrices() {
+            const vehicleType = document.getElementById('vehicle_type').value;
+
+            // ตั้งค่าราคาให้กับรถยนต์และมอเตอร์ไซค์
+            let hourlyPrice, dailyPrice;
+            
+            if (vehicleType === 'car') {
+                hourlyPrice = 40; // ราคาเต็มรายชั่วโมงรถยนต์
+                dailyPrice = 200;  // ราคาเต็มรายวันรถยนต์
+            } else {
+                hourlyPrice = 20; // ราคาเต็มรายชั่วโมงมอเตอร์ไซค์
+                dailyPrice = 100;  // ราคาเต็มรายวันมอเตอร์ไซค์
+            }
+
+            // อัปเดตราคาในฟิลด์
+            document.getElementById('hourly_price').value = hourlyPrice;
+            document.getElementById('daily_price').value = dailyPrice;
+
+            // คำนวณราคาที่มีส่วนลดหากมีการกรอกเปอร์เซ็นต์ส่วนลด
+            const discountPercentageInput = document.getElementById('discount_percentage');
+            const discountPercentage = parseFloat(discountPercentageInput.value);
+
+            if (!isNaN(discountPercentage)) {
+                const discountedHourlyPrice = hourlyPrice * (1 - discountPercentage / 100);
+                const discountedDailyPrice = dailyPrice * (1 - discountPercentage / 100);
+
+                document.getElementById('hourly_discounted').value = discountedHourlyPrice.toFixed(2);
+                document.getElementById('daily_discounted').value = discountedDailyPrice.toFixed(2);
+            }
+        }
+
+        // เรียกฟังก์ชัน updatePrices เมื่อโหลดหน้า
+        window.onload = updatePrices;
+
+        // Trigger the price update when the discount changes
+        document.getElementById('discount_percentage').addEventListener('input', updatePrices);
 
         function handleFormSubmit() {
             alert('บันทึกโปรโมชันเรียบร้อยแล้ว!');

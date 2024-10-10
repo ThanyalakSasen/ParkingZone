@@ -13,12 +13,13 @@ return new class extends Migration
     {
         Schema::create('dashboards', function (Blueprint $table) {
             $table->id();
-            $table->string("shipping_type");
-            $table->string("vehicle_type");
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->string("shipping_type"); // hourly, daily, monthly
+            $table->string("vehicle_type"); // car, motorcycle
             $table->string('license_plate');
             $table->dateTime("date_entry");
             $table->dateTime("date_exit");
-            $table->integer('duration');
+            $table->integer('duration'); // Duration can be hours or days based on shipping_type
             $table->timestamps();
             $table->softDeletes();
         });
@@ -31,4 +32,5 @@ return new class extends Migration
     {
         Schema::dropIfExists('dashboards');
     }
+    
 };

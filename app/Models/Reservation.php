@@ -28,4 +28,10 @@ class Reservation extends Model
     {
         return $this->belongsTo(Dashboard::class, 'dashboard_id');
     }
+
+    // สร้างความสัมพันธ์ Many-to-One กับ Promotion
+    public function promotion()
+    {
+        return $this->belongsTo(Promotion::class);  // การจองนี้อยู่ภายใต้โปรโมชันใดโปรโมชันหนึ่ง
+    }
 }

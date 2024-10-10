@@ -10,7 +10,10 @@ class Dashboard extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $primaryKey = 'dashboard_id';
+
     protected $fillable = [
+        'user_id',
         'shipping_type',
         'vehicle_type',
         'license_plate',

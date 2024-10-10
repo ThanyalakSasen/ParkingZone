@@ -37,16 +37,31 @@ input[type="email"] {
     justify-content: center;
     align-items: center;
 }
+/* แสดงราคาเต็มโดยไม่มีขีดฆ่า */
 .original-price {
-    text-decoration: line-through;
-    color: red;
-    font-size: 20px;
+    text-decoration: none;
+    color: black; /* เปลี่ยนสีของราคาเต็มเป็นสีดำ */
 }
+
+/* ขีดฆ่าราคาเต็มเมื่อเลือกโปรโมชัน */
+.discount-active .original-price {
+    text-decoration: line-through;
+    color: red; /* เปลี่ยนสีของราคาเมื่อถูกขีดฆ่า */
+}
+
+/* ซ่อนราคาที่ลดเมื่อไม่ได้เลือกโปรโมชัน */
 .discounted-price {
+    display: none;
+}
+
+/* แสดงราคาหลังหักส่วนลดเมื่อมีการเลือกโปรโมชัน */
+.discount-active .discounted-price {
+    display: block;
     font-weight: bold;
     color: green;
     font-size: 24px;
 }
+
 .qr-code {
     text-align: center;
     margin: 20px 0;
@@ -86,3 +101,51 @@ input[type="submit"]:hover {
     border-radius: 5px;
     font-size: 18px;
 }
+.upload-slip {
+    margin: 20px 0;
+    text-align: left; /* Center-align the label */
+}
+
+.upload-slip label {
+    font-size: 1.2em; /* Adjust label font size */
+    display: block;
+    margin-bottom: 10px; /* Space below the label */
+    color: #555; /* Medium gray for the label */
+}
+
+.upload-slip input[type="file"] {
+    padding: 12px;
+    background-color: #f0f0f0; /* Light gray background */
+    color: #333; /* Dark gray text */
+    width: 98%;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 1em;
+    cursor: pointer; /* Pointer cursor on hover */
+    outline: none; /* Remove the default outline */
+}
+
+.upload-slip input[type="file"]:hover {
+    background-color: #e0e0e0; /* Slightly darker gray on hover */
+}
+
+.upload-slip input[type="file"]::file-selector-button {
+    display: none; /* Hide the default file upload button */
+}
+
+.upload-slip input[type="file"]::before {
+    content: 'เลือกไฟล์'; /* Custom button text */
+    display: inline-block;
+    background-color: #555; /* Dark gray button */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer; /* Pointer on hover */
+    font-size: 1em;
+    margin-right: 10px;
+}
+
+.upload-slip input[type="file"]:hover::before {
+    background-color: #333; /* Darker on hover */
+}
+

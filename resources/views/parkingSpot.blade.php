@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="{{ asset('icon.png') }}" sizes="32x32">
     <link rel="stylesheet" href="{{ asset('user-parking-spot.css') }}">
-    <title>เพิ่มสถานที่จอดรถ</title>
+    <title>เลือกที่จอดรถ</title>
 </head>
 
 <body>
@@ -16,6 +16,7 @@
     @if (session('errors'))
         <div class="error">{{ session('errors') }}</div>
     @endif
+
     <header>
         <a href="{{ url('/') }}"><img src="../../img/logo.png" alt=""></a>
         <h3>ParkingZone</h3>
@@ -24,9 +25,7 @@
             <a href="{{ route('vehicle.create') }}">เพิ่มข้อมูลรถ</a>
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
-                <button type="submit" class="sidebar-logout">
-                    logout
-                </button>
+                <button type="submit" class="sidebar-logout">logout</button>
             </form>
         </div>
     </header>
@@ -37,28 +36,20 @@
             <h4>ชั้นที่: {{ $floor['floor'] . ' ' }} ({{ $floor['name'] }})</h4>
             <div class="spot-table">
                 @foreach ($floor['spots'] as $spot)
-                    <form method="POST" action="{{ route('user-parking-spots.update', $spot['id']) }}"
-                        id="select-spot-form"
-                        onsubmit="return  selectSpot(event, {{ (bool) $spot['is_available'] }}, {{ $spot['id'] }})">
+                    <form method="POST" action="{{ route('user-parking-spots.update', $spot['id']) }}" id="select-spot-form-{{ $spot['id'] }}" onsubmit="return selectSpot(event, {{ (bool) $spot['is_available'] }}, {{ $spot['id'] }})">
                         @csrf
                         @method('PATCH')
-                        <input type="number" name="dashboard_id" value="{{ $dashboardId }}" style="display: none">
-
+                        <input type="hidden" name="dashboard_id" value="{{ $dashboardId }}">
+                        
                         @if ($spot['is_available'])
-                            <button type="submit"
-                                class="spot-item {{ $spot['spot_type'] == 'รถยนต์' ? 'spot-item-cars' : 'spot-item-motorcycle' }} spot-item-available">
+                            <button type="submit" class="spot-item {{ $spot['spot_type'] == 'รถยนต์' ? 'spot-item-cars' : 'spot-item-motorcycle' }} spot-item-available">
                                 <span>{{ $spot['spot_number'] }}</span>
-                                <img class='spot-item-img'
-                                    src="{{ $spot['spot_type'] == 'รถยนต์' ? asset('/car_icon.png') : asset('/motorcycle_icon.png') }}"
-                                    alt="">
+                                <img class='spot-item-img' src="{{ $spot['spot_type'] == 'รถยนต์' ? asset('/car_icon.png') : asset('/motorcycle_icon.png') }}" alt="">
                             </button>
                         @else
-                            <button type="reset"
-                                class="spot-item {{ $spot['spot_type'] == 'รถยนต์' ? 'spot-item-cars' : 'spot-item-motorcycle' }} spot-item-unavailable">
+                            <button type="reset" class="spot-item {{ $spot['spot_type'] == 'รถยนต์' ? 'spot-item-cars' : 'spot-item-motorcycle' }} spot-item-unavailable">
                                 <span>{{ $spot['spot_number'] }}</span>
-                                <img class='spot-item-img'
-                                    src="{{ $spot['spot_type'] == 'รถยนต์' ? asset('/car_icon.png') : asset('/motorcycle_icon.png') }}"
-                                    alt="">
+                                <img class='spot-item-img' src="{{ $spot['spot_type'] == 'รถยนต์' ? asset('/car_icon.png') : asset('/motorcycle_icon.png') }}" alt="">
                             </button>
                         @endif
                     </form>
@@ -66,16 +57,16 @@
             </div>
         @endforeach
     </div>
+
     <script>
         function selectSpot(event, isAvailable, spotId) {
             if (!isAvailable) {
                 event.preventDefault();
-                console.log('herere isAvailable', isAvailable)
+                alert('ที่จอดรถนี้ไม่ว่าง');
                 return false;
             }
-            const form = document.getElementById('select-spot-form');
-            form.action = `/parking-spots/${spotId}`;
-            form.method = 'PATCH';
+            const form = document.getElementById('select-spot-form-' + spotId);
+            form.action = `/select-parking-spots/${spotId}`;
             return true;
         }
     </script>

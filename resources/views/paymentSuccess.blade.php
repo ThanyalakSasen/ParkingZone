@@ -1,3 +1,7 @@
+{{-- paymentSuccess.blade.php --}}
+@extends('layouts.sidebar')
+
+@section('content')
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,6 +32,9 @@
                 <a href="{{ url('/') }}">กลับสู่หน้าแรก</a>
             </div>
         </div>
+    </div>
 </body>
 
 </html>
+@endsection
+

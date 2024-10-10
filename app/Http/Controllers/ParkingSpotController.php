@@ -10,12 +10,17 @@ use App\Models\ParkingSpot;
 
 class ParkingSpotController extends Controller
 {
-    public function show($dashboardId)
-    {
-        $floors = ParkingFloor::with('parkingSpots')->orderBy('floor', 'DESC')->get();
-        $floors = (new ParkingSpotService())->transformFloors($floors);
-        return view('parkingSpot', compact('floors', 'dashboardId'));
+    public function show($id)
+{
+    $parkingSpot = ParkingSpot::find($id);
+    
+    if (!$parkingSpot) {
+        return redirect()->route('reservations.index')->withErrors(['errors' => 'ไม่พบข้อมูลที่จอดรถ']);
     }
+
+    return view('parking-spot.show', compact('parkingSpot'));
+}
+
 
     public function update(Request $request, $id)
     {
