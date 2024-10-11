@@ -55,44 +55,33 @@
             var vehicleType = @json($vehicleType);
             const selectedPromotion = JSON.parse(document.getElementById('promotion').value || null);
 
+            if (shippingType == 'hourly') {
+                defaultPrice = 40;
+            } else if (shippingType == 'dayly') {
+                defaultPrice = 200;
+            } else if (shippingType == 'monthly') {
+                defaultPrice = 2000;
+            }
+            if (vehicleType == 'มอเตอร์ไซต์') {
+                defaultPrice = defaultPrice / 2;
+            }
+            defaultPrice = defaultPrice * parseFloat(duration)
+
             if (selectedPromotion == null) {
                 document.getElementById('promotion-price').style.display = 'none';
                 document.getElementById('default-price').style.display = 'block';
-                if (shippingType == 'hourly') {
-                    defaultPrice = 40;
-                } else if (shippingType == 'dayly') {
-                    defaultPrice = 200;
-                } else if (shippingType == 'monthly') {
-                    defaultPrice = 2000;
-                }
-
-                if (vehicleType == 'มอเตอร์ไซต์') {
-                    defaultPrice = defaultPrice / 2;
-                }
 
                 document.getElementById('defaultPrice').innerText = defaultPrice;
                 document.getElementById('total-price').innerText = `ยอดชำระทั้งหมด ${defaultPrice} บาท`;
                 return;
             }
-
             document.getElementById('promotion-price').style.display = 'block';
             document.getElementById('default-price').style.display = 'none';
 
-            rate = 0;
-            if (shippingType == 'hourly') {
-                rate = parseFloat(selectedPromotion.hourly_price);
-            } else if (shippingType == 'dayly') {
-                rate = parseFloat(selectedPromotion.daily_price);
-            } else if (shippingType == 'monthly') {
-                rate = parseFloat(selectedPromotion.monthly_price);
-            }
-            totalBeforeDiscount = rate * parseFloat(duration);
-
             discountRate = parseFloat(selectedPromotion.discount_percentage) / 100;
-            totalAfterDisCount = (1 - discountRate) * totalBeforeDiscount;
-            console.log(discountRate, totalAfterDisCount);
+            totalAfterDisCount = (1 - discountRate) * defaultPrice;
 
-            document.getElementById('originalPrice').innerText = totalBeforeDiscount;
+            document.getElementById('originalPrice').innerText = defaultPrice;
             document.getElementById('discountedPrice').innerText = totalAfterDisCount;
             document.getElementById('total-price').innerText = `ยอดชำระทั้งหมด ${totalAfterDisCount} บาท`;
             document.getElementById('input-price').value = totalAfterDisCount;
