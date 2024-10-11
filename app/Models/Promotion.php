@@ -17,7 +17,6 @@ class Promotion extends Model
         'end_date',
         'hourly_price',
         'daily_price',
-        'monthly_price',
         'discount_percentage',
     ];
 }

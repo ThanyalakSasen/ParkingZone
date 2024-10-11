@@ -20,6 +20,11 @@ class ParkingSpot extends Model
 
     public function location()
     {
-        return $this->belongsTo(ParkingFloor::class, 'parking_floor_id');
+        return $this->belongsTo(ParkingFloor::class, 'parking_floor_id'); 
+    }
+
+    public function Reservation()
+    {
+        return $this->belongsTo(Reservation::class); 
     }
 }

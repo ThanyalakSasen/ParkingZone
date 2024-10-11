@@ -22,6 +22,7 @@
                 <a href="{{ route('reservations.index') }}">ประวัติการจอง</a>
                 <a href="{{ route('vehicle.create') }}">เพิ่มข้อมูลรถ</a>
             @else
+                <a href="{{ route('admin.login')}}">สำหรับพนักงาน</a>
                 <a href="{{ route('login') }}">เข้าสู่ระบบ</a>
                 <a href="{{ route('register') }}">สมัครสมาชิก</a>
             @endauth

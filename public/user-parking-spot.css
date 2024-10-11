@@ -280,3 +280,14 @@ td:last-child > div {
     background-color: #fff;
     cursor: pointer;
 }
+.spot-table {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 50px;
+}
+
+/* เพิ่มระยะห่างเฉพาะคอลัมน์ตรงกลาง */
+.spot-item:nth-child(4n+3) {
+    margin-right: 40px;
+}
