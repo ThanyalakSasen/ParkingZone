@@ -33,8 +33,7 @@ class PromotionController extends Controller
         $promotion->hourly_price = $validated['hourly_price'];
         $promotion->monthly_price = $validated['monthly_price'];
         $promotion->daily_price = $validated['daily_price'];
-
-        $discount = $validated['discount_percentage'] / 100;
+        $promotion->discount_percentage = $validated['discount_percentage'] / 100;
         $promotion->save();
 
         return redirect()->back()->with('success', 'Promotion "' . $promotion->festival_name . '" saved successfully!');
@@ -48,7 +47,7 @@ class PromotionController extends Controller
             'end_date' => 'required|date',
             'hourly_price' => 'required|numeric',
             'daily_price' => 'required|numeric',
-            
+            'monthly_price' => 'required|numeric',
             'discount_percentage' => 'required|numeric|min:0|max:100',
         ]);
 
