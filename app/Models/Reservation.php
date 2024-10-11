@@ -15,14 +15,31 @@ class Reservation extends Model
         'dashboard_id',
         'user_id',
         'booking_date',
-        'start_time',
+        'time_start',
         'end_time',
-        'reservation_number',
+        'spot_number',
         'parking_type',
         'license_plate',
         'parking_status',
         'price',
     ];
+
+    public function ParkingSpot()
+    {
+        return $this->belongsTo(ParkingSpot::class, 'spot_number', 'spot_number');
+    }
+
+    // สร้างความสัมพันธ์แบบ One-to-One กับ Dashboard
+    // public function dashboard()
+    // {
+    //     return $this->hasOne(Dashboard::class, 'dashboard_id', 'dashboard_id');
+    // }
+
+    // เพิ่มความสัมพันธ์กับ Model User
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 
     public function dashboard()
     {

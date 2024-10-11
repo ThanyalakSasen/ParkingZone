@@ -32,6 +32,7 @@ class PaymentController extends Controller
             'spot_id' => 'required|numeric',
             'dashboard_id' => 'required|numeric',
             'price' => 'required|numeric',
+            'discount_percentage' =>'equired|numeric',
         ]);
 
         $user = Auth::user();
@@ -45,9 +46,9 @@ class PaymentController extends Controller
             'dashboard_id' => $validated['dashboard_id'],
             'user_id' => $user->id,
             'booking_date' => Carbon::now()->format('Y-m-d\TH:i'),
-            'start_time' => $dashboard->date_entry,
+            'time_start' => $dashboard->date_entry,
             'end_time' => $dashboard->date_exit,
-            'reservation_number' => $parkingSpot->spot_number,
+            'spot_number' => $parkingSpot->spot_number,
             'parking_type' => $dashboard->shipping_type,
             'license_plate' => $dashboard->license_plate,
             'parking_status' => 'ไม่ว่าง',
