@@ -21,9 +21,10 @@ class PaymentController extends Controller
         $promotions = Promotion::all();
 
         $dashboard = Dashboard::where('id', $dashboardId)->first();
+        $vehicleType = $dashboard->vehicle_type;
         $shippingType = $dashboard->shipping_type;
         $duration = $dashboard->duration;
-        return view('payment', compact('spotId', 'dashboardId', 'promotions', 'shippingType', 'duration'));
+        return view('payment', compact('spotId', 'dashboardId', 'promotions', 'shippingType', 'duration', 'vehicleType'));
     }
 
     public function create(Request $request)
@@ -32,7 +33,7 @@ class PaymentController extends Controller
             'spot_id' => 'required|numeric',
             'dashboard_id' => 'required|numeric',
             'price' => 'required|numeric',
-            'discount_percentage' =>'equired|numeric',
+            'discount_percentage' => 'equired|numeric',
         ]);
 
         $user = Auth::user();

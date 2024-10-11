@@ -16,12 +16,19 @@
             @csrf <!-- ใช้เพื่อป้องกัน CSRF -->
             <label for="promotion">เลือกโปรโมชัน:</label>
             <select id="promotion" onchange="applyPromotion()" class="select-promotion">
+                <option value="">เลือกโปรโมชัน</option>
                 @foreach ($promotions as $promotion)
-                    <option value="{{ json_encode($promotion) }}">{{ $promotion->festival_name }}</option>
+                    @if ($promotion->vehicle_type == $vehicleType)
+                        <option value="{{ json_encode($promotion) }}">{{ $promotion->festival_name }}</option>
+                    @endif
                 @endforeach
             </select>
 
-            <div class="price">
+            <div class="price" id="default-price">
+                <div class="discounted-price">ราคาสุทธิ: ฿<span id="defaultPrice">0</span></div>
+            </div>
+
+            <div class="price" id="promotion-price">
                 <div class="original-price">ราคาเต็ม: ฿<span id="originalPrice">0</span></div>
                 <div class="discounted-price">ราคาหลังหักส่วนลด: ฿<span id="discountedPrice">0</span></div>
             </div>
@@ -43,10 +50,33 @@
 
     <script>
         function applyPromotion() {
-            const selectedPromotion = JSON.parse(document.getElementById('promotion').value || '{}');
             var shippingType = @json($shippingType);
             var duration = @json($duration);
+            var vehicleType = @json($vehicleType);
+            const selectedPromotion = JSON.parse(document.getElementById('promotion').value || null);
 
+            if (selectedPromotion == null) {
+                document.getElementById('promotion-price').style.display = 'none';
+                document.getElementById('default-price').style.display = 'block';
+                if (shippingType == 'hourly') {
+                    defaultPrice = 40;
+                } else if (shippingType == 'dayly') {
+                    defaultPrice = 200;
+                } else if (shippingType == 'monthly') {
+                    defaultPrice = 2000;
+                }
+
+                if (vehicleType == 'มอเตอร์ไซต์') {
+                    defaultPrice = defaultPrice / 2;
+                }
+
+                document.getElementById('defaultPrice').innerText = defaultPrice;
+                document.getElementById('total-price').innerText = `ยอดชำระทั้งหมด ${defaultPrice} บาท`;
+                return;
+            }
+
+            document.getElementById('promotion-price').style.display = 'block';
+            document.getElementById('default-price').style.display = 'none';
 
             rate = 0;
             if (shippingType == 'hourly') {
@@ -60,6 +90,7 @@
 
             discountRate = parseFloat(selectedPromotion.discount_percentage) / 100;
             totalAfterDisCount = (1 - discountRate) * totalBeforeDiscount;
+            console.log(discountRate, totalAfterDisCount);
 
             document.getElementById('originalPrice').innerText = totalBeforeDiscount;
             document.getElementById('discountedPrice').innerText = totalAfterDisCount;
