@@ -40,7 +40,6 @@
             }
         }
 
-
         function showVehicleForm(type) {
             const carForm = document.getElementById('carForm');
             const motorcycleForm = document.getElementById('motorcycleForm');
@@ -87,7 +86,7 @@
         <div class="shippingType">
             <div>
                 <input class="radio-wrap" type="radio" id="hourly" name="shipping_type" value="hourly" checked
-                    onchange="showForm('hourly')">รายชั่วโมง</input>
+                    onchange="showForm('hourly')"> รายชั่วโมง
             </div>
             <div>
                 <input class="radio-wrap" type="radio" id="dayly" name="shipping_type" value="dayly"
@@ -95,7 +94,7 @@
             </div>
             <div>
                 <input class="radio-wrap" type="radio" id="monthly" name="shipping_type" value="monthly"
-                    onchange="showForm('monthly')">รายเดือน</input>
+                    onchange="showForm('monthly')"> รายเดือน
             </div>
         </div>
 
@@ -125,13 +124,13 @@
             </select>
         </div>
 
-        <div id="motorcycleForm" class="dropdow-wrap">
-            <label for="license_plate1">เลือกหมายเลขทะเบียน</label>
+        <div id="motorcycleForm" class="dropdow-wrap" style="display: none;">
+            <label for="license_plate2">เลือกหมายเลขทะเบียน</label>
             <select class="dropdown-select" name="license_plate2">
-                {{ $cars = $vehicleInfos->filter(function ($vehicleInfo) {
+                {{ $motorcycles = $vehicleInfos->filter(function ($vehicleInfo) {
                     return $vehicleInfo->vehicle_type == 'มอเตอร์ไซต์';
                 }) }}
-                @if (isset($cars) && count($cars) == 0)
+                @if (isset($motorcycles) && count($motorcycles) == 0)
                     <option value="" disabled selected>ไม่มีหมายเลขทะเบียนมอเตอร์ไซต์</option>
                 @endif
                 @foreach ($vehicleInfos as $vehicleInfo)
@@ -160,7 +159,7 @@
             </div>
 
             <div class="dropdow-wrap">
-                <label id='duration-label' for="duration"></label>
+                <label id="duration-label" for="duration"></label>
                 <input class="input-duration" id="duration-input" type="number" name="duration" value="1"
                     required>
             </div>

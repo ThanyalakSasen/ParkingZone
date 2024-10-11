@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('parking_floors', function (Blueprint $table) {
             $table->id();
-            $table->integer('floor');
+            $table->integer('floor')->unique(); 
             $table->string('name');
             $table->timestamps();
         });
