@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\ParkingFloor;
 use App\Models\ParkingSpot;
@@ -14,11 +13,10 @@ class ParkingSpotDefualtSeeder extends Seeder
      */
     public function run(): void
     {
-        //
         $parkingFloors = [
             [
                 'floor' => 1,
-                'name' => 'สำหรับมอเตอร์ไซค์'
+                'name' => 'สำหรับมอเตอร์ไซต์'
             ],
             [
                 'floor' => 2,
@@ -29,45 +27,35 @@ class ParkingSpotDefualtSeeder extends Seeder
                 'name' => 'สำหรับรถยนต์'
             ]
         ];
+
         foreach ($parkingFloors as $parkingFloor) {
-            // ใช้ firstOrCreate เช็คว่ามี แถวไหม ถ้าไม่มีค่อยสร้าง
             ParkingFloor::firstOrCreate(
-                ['floor' => $parkingFloor['floor']], // เช็คว่ามีชั้นนี้แล้วไหม
-                $parkingFloor  // ถ้าไม่มี ให้สร้าง record ใหม่
+                ['floor' => $parkingFloor['floor']],
+                $parkingFloor
             );
         }
-        //สร้างlistเอาไว้ลองรับข้อมูล
-        $parkingSpots = []; 
 
-        for($i=1; $i<=3; $i++){
-            for($j=1; $j<33; $j++){
-                if($i==1){
+        $parkingSpots = [];
+        for ($i = 1; $i <= 3; $i++) {
+            for ($j = 1; $j < 33; $j++) {
+                if ($i == 1) {
                     $parkingSpots[] = [
-                        
-                            'spot_number' => 'A' . $j,
-                            'parking_floor_id' => 1,
-                            'is_available' => true,
-                            'spot_type' => 'มอเตอร์ไซค์',
+                        'spot_number' => 'A' . $j,
+                        'parking_floor_id' => $i,
+                        'is_available' => true,
+                        'spot_type' => 'มอเตอร์ไซต์',
                     ];
-                
-                }else if($i==2){
+                } else {
                     $parkingSpots[] = [
-                            'spot_number' => 'B' . $j,
-                            'parking_floor_id' => 2,
-                            'is_available' => true,
-                            'spot_type' => 'รถยนต์',
-                    ];
-                }else if($i==3){
-                    $parkingSpots[] = [
-                            'spot_number' => 'C' . $j,
-                            'parking_floor_id' => 3,
-                            'is_available' => true,
-                            'spot_type' => 'รถยนต์',
+                        'spot_number' => 'B' . $j,
+                        'parking_floor_id' => $i,
+                        'is_available' => true,
+                        'spot_type' => 'รถยนต์',
                     ];
                 }
             }
         }
-        // dd($parkingSpots);
+
         foreach ($parkingSpots as $spot) {
             ParkingSpot::firstOrCreate(
                 [
@@ -77,6 +65,5 @@ class ParkingSpotDefualtSeeder extends Seeder
                 $spot
             );
         }
-       
     }
 }
