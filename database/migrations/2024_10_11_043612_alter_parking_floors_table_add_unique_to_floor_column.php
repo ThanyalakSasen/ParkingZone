@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('parking_floors', function (Blueprint $table) {
+        Schema::table('parking_floors', function (Blueprint $table) {
             $table->integer('floor')->unique()->change();
         });
     }

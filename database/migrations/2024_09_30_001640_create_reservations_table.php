@@ -14,8 +14,6 @@ return new class extends Migration
     {
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('dashboard_id')->nullable();
-            $table->foreignId('user_id')->nullable()->default(0);
             $table->date('booking_date');
             $table->time('start_time');
             $table->time('end_time');

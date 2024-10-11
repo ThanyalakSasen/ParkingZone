@@ -45,9 +45,16 @@ class ParkingSpotDefualtSeeder extends Seeder
                         'is_available' => true,
                         'spot_type' => 'มอเตอร์ไซต์',
                     ];
-                } else {
+                } else if ($i == 2) {
                     $parkingSpots[] = [
                         'spot_number' => 'B' . $j,
+                        'parking_floor_id' => $i,
+                        'is_available' => true,
+                        'spot_type' => 'รถยนต์',
+                    ];
+                } else if ($i == 3) {
+                    $parkingSpots[] = [
+                        'spot_number' => 'C' . $j,
                         'parking_floor_id' => $i,
                         'is_available' => true,
                         'spot_type' => 'รถยนต์',

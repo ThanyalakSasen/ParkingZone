@@ -6,9 +6,11 @@
     > npm install
 3. สร้าง APP_KEY ใหม่
     > php artisan key:generate
-4. migrate ตาราง (อย่าลืมแก้ database ใน .env)
+4. clear database เดิมก่อน (ถ้าไม่ต้องการ clear ไม่ต้องรัน)
+    > php artisan migrate:fresh
+5. migrate ตาราง (อย่าลืมแก้ database ใน .env)
     > php artisan migrate
-5. Seed ข้อมูลช่องจอดรถ
+6. Seed ข้อมูลช่องจอดรถ
     > php artisan db:seed --class=ParkingSpotDefualtSeeder
 
 <br>
