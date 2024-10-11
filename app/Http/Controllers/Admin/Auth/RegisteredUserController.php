@@ -46,6 +46,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(route('admin.dashboard.index', absolute: false));
+        return redirect(route('admin.parking-spots.index', absolute: false));
     }
 }
