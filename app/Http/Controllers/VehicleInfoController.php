@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CarInfo;
 use App\Models\VehicleInfo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,7 +19,8 @@ class VehicleInfoController extends Controller
     public function create()
     {
         $user = Auth::user();
-        return view('vehicleInfo.create', compact('user'));
+        $vehicles = VehicleInfo::all();
+        return view('vehicleInfo.create', compact('user', 'vehicles'));
     }
 
     public function store(Request $request)

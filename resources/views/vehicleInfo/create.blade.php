@@ -9,7 +9,7 @@
 @section('content')
     <div class="container">
         <h2>เพิ่มข้อมูลรถใหม่</h2>
-        <form action="{{ route('vehicle.store') }}" method="POST">
+        <form action="{{ route('vehicle.store') }}" method="POST" onsubmit="return checkDuplicate(event);">
             @csrf
             <div class="input-wrap">
                 <label for="license_plate">เลขทะเบียนรถ</label>
@@ -133,11 +133,23 @@
         </form>
     </div>
 
-    @if (session('errors'))
-        {{-- <div class="error">{{ session('errors') }}</div> --}}
-        <script>
-            alert("ป้ายทะเบียนซ้ำ กรุณากรอกใหม่อีกครั้ง");
-        </script>
-    @endif
+    <script>
+        function checkDuplicate(event) {
+            const vehicles = @json($vehicles);
+            const licensePlate = document.getElementById('license_plate').value.trim();
+            const province = document.getElementById('province').value;
+
+            const isDuplicate = vehicles.some(vehicle => {
+                return vehicle.license_plate == licensePlate;
+            });
+
+            if (isDuplicate) {
+                alert("ป้ายทะเบียนนี้ถูกใช้งานเเล้ว กรุณากรอกข้อมูลใหม่");
+                event.preventDefault();
+                return false;
+            }
+            return true;
+        }
+    </script>
 
 @endsection
