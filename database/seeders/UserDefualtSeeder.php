@@ -17,7 +17,7 @@ class UserDefualtSeeder extends Seeder
             ['email' => 'admin@email.com'],
             [
                 'name' => 'admin',
-                'password' => Hash::make('user123456'),
+                'password' => Hash::make('admin123456'),
                 'is_admin' => true,
             ]
         );
