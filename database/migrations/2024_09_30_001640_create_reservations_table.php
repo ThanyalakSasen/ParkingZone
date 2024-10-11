@@ -16,20 +16,16 @@ return new class extends Migration
             $table->id();
             $table->foreignId('dashboard_id')->nullable();
             $table->foreignId('user_id')->nullable()->default(0);
-            $table->date('booking_date');  // วันที่จอง
-            $table->time('time_start')->nullable();
-            // $table->time('time_start');  // เวลาเข้า
-            $table->time('end_time');  // เวลาออก
-            $table->string('spot_number')->nullable();
-            // $table->string('spot_number');  // หมายเลขที่จอง
-            $table->string('parking_type');  // ประเภทที่จอด
-            $table->string('license_plate');  // ป้ายทะเบียน
-            $table->string('parking_status');  // สถานะที่จอด
-            $table->decimal('price', 8, 2);  // ราคา
+            $table->date('booking_date');
+            $table->time('start_time');
+            $table->time('end_time');
+            $table->string('reservation_number');
+            $table->string('parking_type');
+            $table->string('license_plate');
+            $table->string('parking_status');
+            $table->decimal('price', 8, 2);
             $table->timestamps();
-
         });
-       
     }
 
     /**
@@ -38,6 +34,5 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('reservations');
-            $table->dropColumn('time_start');
     }
 };

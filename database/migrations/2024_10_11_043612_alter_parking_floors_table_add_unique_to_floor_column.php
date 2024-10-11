@@ -12,10 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('parking_floors', function (Blueprint $table) {
-            $table->id();
-            $table->integer('floor');
-            $table->string('name');
-            $table->timestamps();
+            $table->integer('floor')->unique()->change();
         });
     }
 
@@ -24,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('parking_floors');
+        Schema::table('parking_floors', function (Blueprint $table) {
+            $table->integer('floor')->dropUnique()->change();
+        });
     }
 };

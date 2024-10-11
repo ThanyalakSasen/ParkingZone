@@ -17,7 +17,7 @@
         <div class="error">{{ session('errors') }}</div>
     @endif
     <header>
-        <a href="{{ url('/') }}"><img src="../../img/logo.png" alt=""></a>
+        <a href="{{ url('/') }}"><img src="{{ asset('img/logo.png') }}" alt=""></a>
         <h3>ParkingZone</h3>
         <div class="navigation-wrap">
             <a href="{{ route('reservations.index') }}">ประวัติการจอง</a>
@@ -70,12 +70,10 @@
         function selectSpot(event, isAvailable, spotId) {
             if (!isAvailable) {
                 event.preventDefault();
-                console.log('herere isAvailable', isAvailable)
                 return false;
             }
             const form = document.getElementById('select-spot-form');
             form.action = `/parking-spots/${spotId}`;
-            form.method = 'PATCH';
             return true;
         }
     </script>
